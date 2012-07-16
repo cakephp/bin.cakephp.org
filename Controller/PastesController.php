@@ -3,11 +3,15 @@ App::uses('Sanitize', 'Utility');
 App::uses('Folder', 'Utility');
 
 class PastesController extends AppController {
+
 	var $nick = null;
 
 	var $paginate = array(
-		'order' => 'Paste.created DESC',
-		'limit' => '40'
+		'Paste' => array(
+			'saved',
+			'order' => 'Paste.created DESC',
+			'limit' => '40'
+		)
 	);
 
 	var $components = array('Session', 'Security');
@@ -35,49 +39,32 @@ class PastesController extends AppController {
 	}
 
 	function index() {
-		$conditions = array(
-			'Paste.save' => 1,
-			'Paste.remove <' => 10,
-		);
+		$conditions = array();
 		if ($this->nick) {
 			$conditions['Paste.nick'] = $this->nick;
 		}
 		$this->Paste->recursive = 0;
-		$pastes = $this->paginate(null, $conditions);
+		$pastes = $this->paginate('Paste', $conditions);
 		$this->set('pastes', $pastes);
 	}
 
 	function nick() {
-		$conditions = array(
-			'Paste.save' => 1,
-			'Paste.remove <' => 10,
-			'Paste.paste_id' => null
-		);
-		if ($this->nick) {
-			$conditions['Paste.nick'] = $this->nick;
-		}
-		$pastes = $this->paginate(null, $conditions);
-		$this->set('pastes', $pastes);
-		$this->render('index');
+		$this->setAction('index');
 	}
 
 	function search() {
+		$conditions = array();
 		$q = null;
 		if(!empty($this->request->params['url']['q'])) {
 			$q = $this->request->params['url']['q'];
 		}
-		$conditions = array(
-			'Paste.save' => 1,
-			'Paste.remove <' => 10,
-			'Paste.paste_id' => null
-		);
 		if ($q) {
 			$conditions['OR'] = array(
 				'Paste.nick LIKE' => '%' . $q . '%',
 				'Paste.note LIKE' => '%' . $q . '%',
 			);
 		}
-		$pastes = $this->paginate(null, $conditions);
+		$pastes = $this->paginate('Paste', $conditions);
 		$this->set(array(
 			'pastes' => $pastes,
 			'q' => $q
@@ -86,14 +73,12 @@ class PastesController extends AppController {
 
 	function recent() {
 		$this->Paste->recursive = 0;
-		return $this->Paste->findAll("Paste.save = '1' AND Paste.remove < '10' AND Paste.paste_id IS NULL",
-										null, 'Paste.created DESC', '10');
+		return $this->Paste->find('recent');
 	}
 
 	function recent_versions() {
 		$this->Paste->recursive = 0;
-		return $this->Paste->findAll("Paste.save = '1' AND Paste.remove < '10' AND Paste.paste_id != NULL",
-										null, 'Paste.created DESC', '10');
+		return $this->Paste->find('recentVersions');
 	}
 
 	function saved($id = null) {
