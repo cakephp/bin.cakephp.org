@@ -1,6 +1,6 @@
-<?php echo $this->Form->create('Paste', array('action'=>'add'));?>
+<?php echo $this->Form->create('Paste', array('action' => 'add'));?>
 	<div class="left">
-		<div class="required"> 
+		<div class="required">
 			<?php echo $this->Form->error('Paste.body', 'Please enter the body.');?>
 		 	<?php echo $this->Form->textarea('NewPaste.body', array('value'=> $this->Cakebin->htmldecode($this->Html->value('NewPaste.body')),'cols' => '70', 'rows' => '26'));?>
 		</div>
@@ -14,7 +14,7 @@
 		</div>
 		<div class="required"> 
 			<?php echo $this->Form->label('NewPaste.lang', 'Language*');?>
-			<?php echo $this->Form->select('NewPaste.lang', $languages, $this->Html->value('NewPaste.lang')) ?>  
+			<?php echo $this->Form->select('NewPaste.lang', $languages); ?>
 			<?php echo $this->Form->error('Paste.lang', 'Please enter the Language.');?>
 		</div>
 		<div class="optional"> 

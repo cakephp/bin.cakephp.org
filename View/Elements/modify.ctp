@@ -27,8 +27,8 @@ endif;
 			<?php echo $this->Form->error('Paste.nick', 'Please enter a Nick.');?>
 		</div>
 		<div class="required"> 
-			<?php echo $this->Form->label('NewPaste.lang', 'Language*');?>
-			<?php echo $this->Form->select('NewPaste.lang', $languages, $this->Html->value('NewPaste.lang')) ?>  
+			<?php echo $this->Form->label('NewPaste.lang', 'Language*'); ?>
+			<?php echo $this->Form->select('NewPaste.lang', $languages); ?>  
 			<?php echo $this->Form->error('Paste.lang', 'Please enter the Language.');?>
 		</div>
 		<div class="optional"> 

@@ -2,7 +2,8 @@
 class CakebinHelper extends Helper {
 	
 	var $helpers = array('Text');
-		
+	var $Geshi;
+	
 	function init($lang = 'php') {
 		App::import('Vendor', 'Geshi');
 		$this->Geshi = & new Geshi(null, null);

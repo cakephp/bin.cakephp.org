@@ -1,6 +1,6 @@
 <?php
-App::uses('Utility', 'Sanitize');
-App::uses('Utility', 'Folder');
+App::uses('Sanitize', 'Utility');
+App::uses('Folder', 'Utility');
 
 class PastesController extends AppController
 {
@@ -13,7 +13,7 @@ class PastesController extends AppController
 		'limit'=>'40'
 	);
 
-	var $components = array('Security');
+	var $components = array('Session', 'Security');
 
 	function _validatePost() {
 		if($this->request->action === 'edit'){
@@ -262,12 +262,12 @@ class PastesController extends AppController
 
 	function __languages() {
 		$names = array();
-		if (!($Folder = new Folder(APP.'vendors'.DS.'geshi'))) {
-			if (!($Folder = new  Folder(ROOT . 'vendors' .DS. 'geshi'))) {
+		if (!($Folder = new Folder(APP.'Vendor'.DS.'geshi'))) {
+			if (!($Folder = new  Folder(ROOT . 'Vendor' .DS. 'geshi'))) {
 				$names[] = 'No languages available!';
 			}
 		}
-		$languages = $Folder->ls(true, true);
+		$languages = $Folder->read(true, true);
 		if(!empty($languages[1])) {
 			foreach($languages[1] as $lang) {
 				$names[substr($lang, 0, strlen($lang) - 4)] = substr($lang, 0, strlen($lang) - 4);
