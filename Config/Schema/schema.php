@@ -19,7 +19,6 @@ class BinCakephpOrgSchema extends CakeSchema {
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'save' => array('type' => 'boolean', 'null' => false, 'default' => '0'),
-		'remove' => array('type' => 'boolean', 'null' => false, 'default' => '0'),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'temp' => array('column' => 'temp', 'unique' => 0),
@@ -37,7 +36,6 @@ class BinCakephpOrgSchema extends CakeSchema {
 	);
 	public $tags = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'primary'),
-		'linked' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10),
 		'name' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 20, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'keyname' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 20, 'key' => 'unique', 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'indexes' => array(

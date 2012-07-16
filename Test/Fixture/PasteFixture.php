@@ -21,7 +21,6 @@ class PasteFixture extends CakeTestFixture {
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'save' => array('type' => 'boolean', 'null' => false, 'default' => '0'),
-		'remove' => array('type' => 'boolean', 'null' => false, 'default' => '0'),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'temp' => array('column' => 'temp', 'unique' => 0),
@@ -38,7 +37,7 @@ class PasteFixture extends CakeTestFixture {
 	public $records = array(
 		array(
 			'id' => 1,
-			'temp' => 0,
+			'temp' => 123456789,
 			'paste_id' => null,
 			'nick' => 'mark',
 			'lang' => 'php',
@@ -51,7 +50,7 @@ class PasteFixture extends CakeTestFixture {
 		),
 		array(
 			'id' => 2,
-			'temp' => 0,
+			'temp' => 987654321,
 			'paste_id' => 1,
 			'nick' => 'phil',
 			'lang' => 'php',
@@ -64,7 +63,7 @@ class PasteFixture extends CakeTestFixture {
 		),
 		array(
 			'id' => 3,
-			'temp' => 1,
+			'temp' => 876543219,
 			'paste_id' => null,
 			'nick' => 'mark',
 			'lang' => 'php',
@@ -77,7 +76,7 @@ class PasteFixture extends CakeTestFixture {
 		),
 		array(
 			'id' => 4,
-			'temp' => 0,
+			'temp' => 765432198,
 			'paste_id' => null,
 			'nick' => 'phil',
 			'lang' => 'php',
