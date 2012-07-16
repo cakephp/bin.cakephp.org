@@ -1,9 +1,6 @@
 <?php
 class TagsController extends AppController
 {
-	//var $scaffold;
-	var $name = 'Tags';
-	
 	function popular() {
 		if($this->request->params['bare'] != '1') {
 			$this->redirect('/');
@@ -20,4 +17,3 @@ class TagsController extends AppController
 	}
 	
 }
-?>

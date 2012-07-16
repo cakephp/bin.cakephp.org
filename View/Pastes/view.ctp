@@ -40,7 +40,7 @@ endif;
 	<?php if($paste['Paste']['save']):?>
 		<div class="tags">
 			Tags
-			<?php echo $ajax->link('add more', '/pastes/tag/'.$paste['Paste']['id'],
+			<?php echo $this->Html->link('add more', '/pastes/tag/'.$paste['Paste']['id'],
 									array('update'=>'tags'));
 			?>
 		</div>
