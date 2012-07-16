@@ -1,10 +1,17 @@
 <?php
-uses('sanitize');
+App::uses('Utility', 'Sanitize');
+App::uses('Utility', 'Folder');
+
 class PastesController extends AppController
 {
 	var $name = 'Pastes';
+
 	var $nick = null;
-	var $paginate = array('order'=>'Paste.created DESC', 'limit'=>'40');
+
+	var $paginate = array(
+		'order'=>'Paste.created DESC',
+		'limit'=>'40'
+	);
 
 	var $components = array('Security');
 
@@ -259,10 +266,9 @@ class PastesController extends AppController
 	}
 
 	function __languages() {
-		uses('folder');
 		$names = array();
-		if (!($Folder = &new Folder(APP.'vendors'.DS.'geshi'))) {
-			if (!($Folder = &new  Folder(ROOT . 'vendors' .DS. 'geshi'))) {
+		if (!($Folder = new Folder(APP.'vendors'.DS.'geshi'))) {
+			if (!($Folder = new  Folder(ROOT . 'vendors' .DS. 'geshi'))) {
 				$names[] = 'No languages available!';
 			}
 		}
@@ -287,4 +293,3 @@ class PastesController extends AppController
 		}
 	}
 }
-?>
