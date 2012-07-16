@@ -82,4 +82,14 @@ class PasteTest extends CakeTestCase {
 		$this->assertEquals(1, $results[0]['Paste']['paste_id']);
 	}
 
+	public function testPurgeTemporary() {
+		$result = $this->Paste->purgeTemporary();
+		$this->assertTrue($result);
+
+		$count = $this->Paste->find('count', array(
+			'conditions' => array('Paste.save' => 0)
+		));
+		$this->assertEquals(0, $count);
+	}
+
 }

@@ -233,25 +233,8 @@ class PastesController extends AppController {
 		}
 	}
 
-	function delete($id = null) {
-		exit();
-		if(!$id) {
-			return false;
-		}
-		if($this->Paste->del($id)) {
-			$this->Session->setFlash('The Paste deleted: id '.$id.'');
-			$this->redirect('/Pastes/index');
-		}
-	}
-
 	function __purge() {
-		$data = $this->Paste->findAll("Paste.save !='1' AND   Paste.created <= DATE_SUB(CURDATE(),INTERVAL 1 DAY)");
-		if(!empty($data)) {
-			foreach($data as $paste)
-			{
-				$this->Paste->del($paste['Paste']['id']);
-			}
-		}
+		$this->Paste->purgeTemporary();
 	}
 
 	function __languages() {

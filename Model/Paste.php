@@ -112,4 +112,17 @@ class Paste extends AppModel
 		return $results;
 	}
 
+/**
+ * Deletes temporary pastes.
+ *
+ * @return boolean
+ */
+	public function purgeTemporary() {
+		$conditions = array(
+			'Paste.save' => 0,
+			'Paste.created <=' => date('Y-m-d', strtotime('-1 day'))
+		);
+		return $this->deleteAll($conditions);
+	}
+
 }
