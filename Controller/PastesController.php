@@ -6,8 +6,8 @@ class PastesController extends AppController {
 	var $nick = null;
 
 	var $paginate = array(
-		'order'=>'Paste.created DESC',
-		'limit'=>'40'
+		'order' => 'Paste.created DESC',
+		'limit' => '40'
 	);
 
 	var $components = array('Session', 'Security');
@@ -35,9 +35,12 @@ class PastesController extends AppController {
 	}
 
 	function index() {
-		$conditions[] = "(Paste.save = '1' AND Paste.remove < '10')";
+		$conditions = array(
+			'Paste.save' => 1,
+			'Paste.remove <' => 10,
+		);
 		if ($this->nick) {
-			$conditions[] .= "(Paste.nick = '{$this->nick}')";
+			$conditions['Paste.nick'] = $this->nick;
 		}
 		$this->Paste->recursive = 0;
 		$pastes = $this->paginate(null, $conditions);
@@ -45,9 +48,13 @@ class PastesController extends AppController {
 	}
 
 	function nick() {
-		$conditions[] = "(Paste.save = '1' AND Paste.remove < '10' AND Paste.paste_id IS NULL)";
+		$conditions = array(
+			'Paste.save' => 1,
+			'Paste.remove <' => 10,
+			'Paste.paste_id' => null
+		);
 		if ($this->nick) {
-			$conditions[] .= "(Paste.nick = '{$this->nick}')";
+			$conditions['Paste.nick'] = $this->nick;
 		}
 		$pastes = $this->paginate(null, $conditions);
 		$this->set('pastes', $pastes);
@@ -59,13 +66,22 @@ class PastesController extends AppController {
 		if(!empty($this->request->params['url']['q'])) {
 			$q = $this->request->params['url']['q'];
 		}
-		$this->set('q', $q);
-		$conditions[] = "(Paste.save = '1' AND Paste.remove < '10' AND Paste.paste_id IS NULL)";
-		if($q) {
-			$conditions[] .= " (Paste.nick LIKE '%{$q}%' OR Paste.note LIKE '%{$q}%')";
+		$conditions = array(
+			'Paste.save' => 1,
+			'Paste.remove <' => 10,
+			'Paste.paste_id' => null
+		);
+		if ($q) {
+			$conditions['OR'] = array(
+				'Paste.nick LIKE' => '%' . $q . '%',
+				'Paste.note LIKE' => '%' . $q . '%',
+			);
 		}
 		$pastes = $this->paginate(null, $conditions);
-		$this->set('pastes', $pastes);
+		$this->set(array(
+			'pastes' => $pastes,
+			'q' => $q
+		));
 	}
 
 	function recent() {
