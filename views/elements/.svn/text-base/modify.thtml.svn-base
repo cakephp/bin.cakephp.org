@@ -1,0 +1,53 @@
+<h4>
+<a href="#modify" onclick="Element.toggle('modify');">
+	Modify this Paste
+</a>
+</h4>
+<?php 
+$style = null;
+if($this->action !='edit'): 
+	$style = 'style="display: none;"';
+endif;
+?>
+<div id="modify" <?php echo $style?>>
+<?php echo $form->create('Paste', array('action'=>'edit'));?>
+	<div class="left">
+		<div class="required"> 
+			<?php echo $form->error('Paste.body', 'Please enter the body.');?>
+		 	<?php echo $form->textarea('NewPaste.body', array('value'=>$cakebin->htmldecode($form->value('NewPaste.body')),'cols' => '70', 'rows' => '26'));?>
+		</div>
+	</div>
+	<div class="right">
+		<div > 
+			<em>required*</em>
+		</div>
+		<div class="required"> 
+			<?php echo $form->label('NewPaste.nick', 'Nick*');?>
+		 	<?php echo $form->text('NewPaste.nick', array('size' => '30'));?>
+			<?php echo $form->error('Paste.nick', 'Please enter a Nick.');?>
+		</div>
+		<div class="required"> 
+			<?php echo $form->label('NewPaste.lang', 'Language*');?>
+			<?php echo $form->select('NewPaste.lang', $languages, $html->value('NewPaste.lang')) ?>  
+			<?php echo $form->error('Paste.lang', 'Please enter the Language.');?>
+		</div>
+		<div class="optional"> 
+			<?php echo $form->label( 'NewPaste.note', 'Note' );?>
+		 	<?php echo $form->textarea('NewPaste.note', array('value'=>$cakebin->htmldecode($form->value('NewPaste.note')), 'cols' => '34', 'rows' => '4'));?>
+		</div>
+	</div>
+	<?php echo $form->hidden('NewPaste.temp');?>
+	<?php echo $form->hidden('NewPaste.save');?>
+	<?php echo $form->hidden('NewPaste.paste_id');?>
+	<?php echo $form->hidden('NewPaste.id');?>
+	
+	<div class="clear">
+		<?php echo $form->input('Other.comment');?>
+		<?php echo $form->input('Other.title');?>
+		<?php echo $form->input('Other.date');?>
+	</div>
+	<div class="left">
+		<?php echo $form->submit('Submit');?>
+	</div>
+<?php echo $form->end();?>
+</div>

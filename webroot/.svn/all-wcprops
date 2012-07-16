@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/repo/sites/!svn/ver/300/trunk/cakebin/webroot
+END
+.htaccess
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/repo/sites/!svn/ver/1/trunk/cakebin/webroot/.htaccess
+END
+index.php
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/repo/sites/!svn/ver/1/trunk/cakebin/webroot/index.php
+END
+css.php
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/repo/sites/!svn/ver/1/trunk/cakebin/webroot/css.php
+END
+favicon.ico
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/repo/sites/!svn/ver/1/trunk/cakebin/webroot/favicon.ico
+END

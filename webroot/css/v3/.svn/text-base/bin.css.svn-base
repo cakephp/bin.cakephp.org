@@ -1,0 +1,346 @@
+*{
+margin:0;
+padding:0;
+}
+
+body{
+font-family:"lucida grande",verdana,helvetica,arial,sans-serif;
+font-size:12px;
+color:#333;
+background:#003d4c url(images/body_bg.gif) repeat-x;  
+margin: 0;
+}
+
+.clear {
+display: block;
+clear: both;
+height: 0;
+line-height: 0;
+margin: 0;
+padding: 0;
+}
+
+/*
+*  General Style Info
+*/
+
+a{
+color:#003d4c;
+text-decoration:none;
+outline:none;
+}
+a:hover{
+color:#003d4c;
+text-decoration:underline;
+}
+
+a img{
+border:none;
+}
+
+h2,h3{
+font-family:'Gill Sans','lucida grande',helvetica, arial, sans-serif;
+font-size:28px;
+font-weight:normal;
+}
+  
+em {
+ font-size: 12px;
+}
+
+h2, #flashMessage{
+margin:0.5em 0;
+color:#e32;
+}
+h4 {
+font-size: 120%;
+}
+ul li {
+list-style-image:  url("images/arrow.gif");
+}
+
+#container{
+	position:relative;
+	background: url(../../img/cake.icon.gif) no-repeat 10px 10px;  
+	padding-top:44px;
+}
+
+#header {
+	position:absolute;
+	top:44px;
+	left: 12px;
+	height:40px;
+	line-height:40px;
+}
+
+#header h1 a {
+	color:#fff;  
+}
+
+#content{
+	position: relative;
+	padding:15px;
+	padding-bottom: 40px;
+	background:#fff;
+}
+
+#footer {
+	text-align: right;
+	color: #fff;
+	font-size: 10px;
+	padding: 4px;
+}
+
+/*
+ * navigations
+ */
+
+.navigation{
+	height:30px;
+	line-height:30px;
+	padding:0 15px;
+}
+
+.navigation li{
+	display:block;
+	float:left;
+}
+
+.navigation a{
+	display:block;
+	float:left;
+	padding:0 12px;
+	text-decoration:none;
+}
+.navigation a:hover {
+	text-decoration: underline;
+}
+#main_nav{
+	font-size:120%;
+	height:30px;
+	line-height:30px;
+	background:#cc6;
+	padding-top: 9px;
+	width:100%;
+} 
+#main_nav .navigation {
+	margin-left: 50px;
+	font-weight: bold;
+}
+#main_nav .navigation a:hover, #main_nav .navigation a.on{
+	font-weight: bold;
+	background: #fff;
+	text-decoration: none;
+}
+#secondary_nav{
+	font-size:90%;
+	position:absolute;
+	top:5px;
+	right:0;
+	z-index:5;
+	background:transparent;
+} 
+
+#secondary_nav a{
+	color:#c0c25b;
+}
+
+
+#sites_nav{
+	position:absolute;
+	top:5px;
+	left:0px;
+	width:100%;
+	height:40px;
+}
+#sites_nav .navigation {
+	margin-left: 10px;
+}
+#sites_nav a {
+	color:#e77844;
+}
+
+#sites_nav li.current a{
+	color:#fff;
+
+}
+#NewPasteBody {
+	font-size: 100%;
+}
+form {
+	min-width: 900px;
+}
+form, input, option, textarea, select {
+	font-size : 120%;
+}
+form .left {
+	width: 60%;
+	float: left;
+}
+form .left textarea{
+	width: 99%;
+	height: 70%;
+}
+form .right {
+	float: left;
+	width: 36%;
+}
+form div.required, form div.optional{
+	padding: 10px;
+}
+form .required {
+	background: #e2e2e2;
+	overflow:hidden;
+}
+form .clear {
+	display: none;
+	visibility: hidden;
+}
+form textarea {
+	display: block;
+}
+form em {
+	font-size: 10px;
+	padding: 0 4px;
+}
+form em a {
+	text-decoration: underline;
+}
+form .submit {
+	text-align: right;
+	padding-top:10px;
+}
+#search {
+	position:absolute;
+	top:42px;
+	height:40px;
+	line-height:40px;
+	right:0;
+	padding-right:15px;
+	min-width: 100px;
+}
+
+#search input {
+	display: inline;
+	font-size: 100%;
+	padding: 0;
+}
+
+#content ul, #content li, #content ol {
+	margin-left: 20px;
+}
+
+/* Views */
+.pastes a {
+display: block;
+color: #444;
+background: #fff;
+text-decoration: none;
+overflow: hidden;
+}
+.pastes a:hover {
+color: #444;
+background: #f2f2f2;
+}
+.pastes .left {
+float: left;
+display: block;
+overflow: hidden;
+margin-right: 6px;
+width: 48px;
+}
+.pastes .date {
+font-weight: bold;
+background: #e2e2e2;
+}
+.pastes .nick {
+clear: right;
+padding: 0 8px;
+font-size: 145%;
+}
+.pastes .lang {
+display: block;
+font-size: 85%;
+}
+.pastes .note {
+clear: left;
+display: block;
+margin-left: 63px;
+margin-bottom: 8px;
+overflow: hidden;
+}
+.pastes .body {
+margin-top: 12px;
+padding: 2px;
+background: #fff;
+}
+.pastes .tags {
+display: block;
+padding: 8px 0;
+margin-left: 48px;
+}
+.pastes #tags {
+margin-left: 48px;
+}
+.paste {
+margin-bottom: 20px;
+}
+.paste .saved {
+font-size: 10px;
+color: #e00;
+}
+.paste .pastes a {
+display: inline;
+color: #000;
+background: #fff;
+text-decoration: underline;
+}
+.paste .pastes a:hover {
+display: inline;
+color: #000;
+background: #fff;
+text-decoration: none;
+}
+.paste .note {
+	padding: 10px 0;
+}
+#content .paste ol {
+	margin: 0;
+	padding: 0 20px;
+	background: #f4f4f4;
+}
+/* Paging */
+div.paging {
+	margin-top: 20px;
+	color: #ccc;
+	margin-bottom: 2em;
+}
+div.paging div.disabled {
+	color: #ddd;
+	display: inline;
+}
+
+.versions {
+	float: right;
+	width: 200px;
+	background: #fff;
+}
+#original {
+	padding-bottom: 10px;
+}
+#versions {
+	width: 200px;
+}
+
+#original a, #versions a {
+	display: block;
+}
+#original a:hover, #versions a:hover {
+background: #e2e2e2;
+text-decoration: none;
+}
+
+#original .note, #versions .note {
+	font-size: 10px;
+}
+
