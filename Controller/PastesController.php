@@ -15,11 +15,6 @@ class PastesController extends AppController
 
 	var $components = array('Security');
 
-	function __construct() {
-		parent::__construct();
-		$this->Sanitize = & new Sanitize();
-	}
-
 	function _validatePost() {
 		if($this->request->action === 'edit'){
 			$this->Security->blackHoleCallback = 'edit';
@@ -135,7 +130,7 @@ class PastesController extends AppController
 		if(!empty($this->request->data)) {
 			$allow = array(',', "'", '"', '_', '-', '|', '^', ':', '.');
 			$allow[] = " ";
-			$tags = $this->Paste->Tag->saveTags($this->Sanitize->paranoid($this->request->data['Paste']['tags'],$allow));
+			$tags = $this->Paste->Tag->saveTags(Sanitize::paranoid($this->request->data['Paste']['tags'],$allow));
 			if(!empty($paste['Tag'])) {
 				foreach($paste['Tag'] as $var) {
 					$tags[] = $var['id'];
@@ -143,7 +138,7 @@ class PastesController extends AppController
 			}
 			$this->request->data['Paste']['id'] = $id;
 			$this->request->data['Tag']['Tag'] = array_unique($tags);
-			$this->Sanitize->clean($this->request->data);
+			Sanitize::clean($this->request->data);
 			if($this->Paste->save($this->request->data)) {
 				$this->set('tags_added', true);
 				$this->Paste->cacheQueries = false;
@@ -173,13 +168,13 @@ class PastesController extends AppController
 			$this->request->data['Paste']['temp'] = abs(mt_rand());
 			if(!empty($this->request->data['Paste']['nick'])) {
 				$allow = array(',', "'", '"', '_', '-', '|', '^', ':', '.');
-				$this->request->data['Paste']['nick'] = $this->Sanitize->paranoid($this->request->data['Paste']['nick'], $allow);
+				$this->request->data['Paste']['nick'] = Sanitize::paranoid($this->request->data['Paste']['nick'], $allow);
 			}
 			if($this->request->data['Paste']['save'] == 1 && !empty($this->request->data['Paste']['tags'])) {
 				$allow = array(" ",'.',',');
-				$this->request->data['Tag']['Tag'] = $this->Paste->Tag->saveTags($this->Sanitize->paranoid($this->request->data['Paste']['tags'],$allow));
+				$this->request->data['Tag']['Tag'] = $this->Paste->Tag->saveTags(Sanitize::paranoid($this->request->data['Paste']['tags'],$allow));
 			}
-			$this->Sanitize->clean($this->request->data);
+			Sanitize::clean($this->request->data);
 			if($this->Paste->save($this->request->data)) {
 				if($this->request->data['Paste']['save'] == 0) {
 					$this->Session->setFlash('The Paste is just temporary.');
@@ -220,14 +215,14 @@ class PastesController extends AppController
 			}
 			if(!empty($this->request->data['Paste']['nick'])) {
 				$allow = array(',', "'", '"', '_', '-', '|', '^', ':', '.');
-				$this->request->data['Paste']['nick'] = $this->Sanitize->paranoid($this->request->data['Paste']['nick'], $allow);
+				$this->request->data['Paste']['nick'] = Sanitize::paranoid($this->request->data['Paste']['nick'], $allow);
 			}
 			if(!empty($this->request->data['Paste']['paste_id'])) {
 				$this->Paste->id = null;
 				$this->request->data['Paste']['id'] = null;
 			}
 
-			$this->Sanitize->clean($this->request->data);
+			Sanitize::clean($this->request->data);
 			if($this->Paste->save($this->request->data)) {
 				if($this->request->data['Paste']['save'] == '0') {
 					$this->Session->setFlash('The Paste is just temporary.');

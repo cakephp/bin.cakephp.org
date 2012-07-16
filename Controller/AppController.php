@@ -9,10 +9,10 @@
  * @subpackage	cake.app
  */
 class AppController extends Controller {
-	
+
 	var $components = array('RequestHandler');
-	
-	var $helpers = array('Html', 'Form', 'Ajax', 'Cakebin', 'Text', 'Time');
+
+	var $helpers = array('Html', 'Form', 'Cakebin', 'Text', 'Time');
 
 	var $layout = 'v3';
 
