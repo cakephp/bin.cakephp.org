@@ -82,6 +82,6 @@
 		 $Dispatcher->dispatch($url);
 	}
 	if (DEBUG) {
-		 echo "<!-- " . round(getMicrotime() - $TIME_START, 4) . "s -->";
+		 echo "<!-- " . round(microtime(true) - $TIME_START, 4) . "s -->";
 	}
 ?>

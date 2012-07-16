@@ -29,11 +29,11 @@
 /**
  * Enter description here...
  */
-	require(CONFIGS . 'paths.php');
+	require(APP . 'Config' . DS . 'paths.php');
 	require(CAKE . 'basics.php');
-	require(LIBS . 'folder.php');
-	require(LIBS . 'file.php');
-	require(LIBS . 'legacy.php');
+	require(CAKE . 'folder.php');
+	require(CAKE . 'file.php');
+	require(CAKE . 'legacy.php');
 /**
  * Enter description here...
  *

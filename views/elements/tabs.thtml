@@ -1,9 +1,0 @@
-<div id="tabs">
-<ul>
-<?php $css_class = (($this->name == 'Pastes' && $this->action == 'recent')) ? 'on' : null;?>
-<li><?php echo $html->link('Recent', '/pastes/recent/', array('class'=>$css_class));?></li>
-
-<?php $css_class = (($this->name == 'Pastes' && $this->action == 'new')) ? 'on' : null;?>
-<li><?php echo $html->link('New', '/pastes/new/', array('class'=>$css_class));?></li>
-</ul>
-</div>
