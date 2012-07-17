@@ -1,6 +1,10 @@
 <?php
+App::uses('Folder', 'Utility');
+
 class Paste extends AppModel
 {
+	protected $_languages;
+
 	public $findMethods = array(
 		'saved' => true,
 		'recent' => true,
@@ -123,6 +127,26 @@ class Paste extends AppModel
 			'Paste.created <=' => date('Y-m-d', strtotime('-1 day'))
 		);
 		return $this->deleteAll($conditions);
+	}
+
+	public function languages() {
+		if (!empty($this->_languages)) {
+			return $this->_languages;
+		}
+		$names = array();
+		if (!($Folder = new Folder(APP.'Vendor'.DS.'geshi'))) {
+			if (!($Folder = new  Folder(ROOT . 'Vendor' .DS. 'geshi'))) {
+				$names[] = 'No languages available!';
+			}
+		}
+		$languages = $Folder->read(true, true);
+		if (!empty($languages[1])) {
+			foreach ($languages[1] as $lang) {
+				$names[substr($lang, 0, strlen($lang) - 4)] = substr($lang, 0, strlen($lang) - 4);
+			}
+		}
+		$this->_languages = $names;
+		return $this->_languages;
 	}
 
 }

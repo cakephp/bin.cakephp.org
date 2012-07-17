@@ -92,4 +92,10 @@ class PasteTest extends CakeTestCase {
 		$this->assertEquals(0, $count);
 	}
 
+	public function testLanguages() {
+		$result = $this->Paste->languages();
+		$this->assertEquals('php', $result['php']);
+		$this->assertEquals('javascript', $result['javascript']);
+	}
+
 }

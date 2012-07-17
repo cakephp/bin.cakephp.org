@@ -90,7 +90,7 @@ class PastesController extends AppController {
 		if (!empty($this->request->data)) {
 			$this->set('paste', $this->request->data);
 			$this->set('original',  $this->request->data['Original']);
-			$this->set('languages',$this->__languages());//set geshi languages
+			$this->set('languages',$this->Paste->languages());//set geshi languages
 			$this->__setPasteId();
 			unset($this->request->data['Paste']['nick']);
 			$this->render('view');
@@ -109,7 +109,7 @@ class PastesController extends AppController {
 		}
 		if(!empty($this->request->data)) {
 			$this->set('paste', $this->request->data);
-			$this->set('languages',$this->__languages());//set geshi languages
+			$this->set('languages', $this->Paste->languages());//set geshi languages
 			$this->__setPasteId();
 			unset($this->request->data['Paste']['nick']);
 		} else {
@@ -149,7 +149,7 @@ class PastesController extends AppController {
 
 	function add() {
 		if (empty($this->request->data)) {
-			$this->set('languages',$this->__languages());//set geshi languages
+			$this->set('languages', $this->Paste->languages());//set geshi languages
 			$this->request->data['Paste']['nick'] = $this->nick;
 			$this->request->data['Paste']['lang'] = 'php';
 			$this->render();
@@ -178,7 +178,7 @@ class PastesController extends AppController {
 				$this->redirect('/view/'.$this->request->data['Paste']['temp']);
 			} else {
 				$this->Session->setFlash('Please correct errors below.');
-				$this->set('languages', $this->__languages());//set geshi languages
+				$this->set('languages', $this->Paste->languages());//set geshi languages
 			}
 		}
 	}
@@ -189,7 +189,7 @@ class PastesController extends AppController {
 			if(!$id) {
 				return false;
 			}
-			$this->set('languages',$this->__languages());//set geshi languages
+			$this->set('languages',$this->Paste->languages());//set geshi languages
 			$this->request->data = $this->Paste->read(null, $id);
 			$this->__setPasteId();
 			$this->set('nick', $this->request->data['Paste']['nick']);
@@ -228,29 +228,13 @@ class PastesController extends AppController {
 			} else {
 				$this->Session->setFlash('Please correct errors.');
 				$this->set('nick', $this->Paste->field('nick'));
-				$this->set('languages',$this->__languages());//set geshi languages
+				$this->set('languages',$this->Paste->languages());//set geshi Paste->languages
 			}
 		}
 	}
 
 	function __purge() {
 		$this->Paste->purgeTemporary();
-	}
-
-	function __languages() {
-		$names = array();
-		if (!($Folder = new Folder(APP.'Vendor'.DS.'geshi'))) {
-			if (!($Folder = new  Folder(ROOT . 'Vendor' .DS. 'geshi'))) {
-				$names[] = 'No languages available!';
-			}
-		}
-		$languages = $Folder->read(true, true);
-		if(!empty($languages[1])) {
-			foreach($languages[1] as $lang) {
-				$names[substr($lang, 0, strlen($lang) - 4)] = substr($lang, 0, strlen($lang) - 4);
-			}
-		}
-		return $names;
 	}
 
 	function __setPasteId() {
