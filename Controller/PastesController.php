@@ -147,38 +147,41 @@ class PastesController extends AppController {
 		$this->render();
 	}
 
+	/**
+	 * Get the form to add a new paste.
+	 */
 	function add() {
-		if (empty($this->request->data)) {
-			$this->set('languages', $this->Paste->languages());//set geshi languages
-			$this->request->data['Paste']['nick'] = $this->nick;
-			$this->request->data['Paste']['lang'] = 'php';
-			$this->render();
-		} elseif (!empty($this->request->data['Other']['comment']) || !empty($this->request->data['Other']['title']) || !empty($this->request->data['Other']['date'])) {
-			$this->request->data['Paste']['created'] = date('Y-m-d H:i:s');
-			$this->view();
-			$this->render('view');
-		} elseif (!empty($this->request->data['NewPaste'])) {
-			$this->request->data['Paste'] = $this->request->data['NewPaste'];
-			$this->request->data['Paste']['temp'] = abs(mt_rand());
-			if (!empty($this->request->data['Paste']['nick'])) {
-				$allow = array(',', "'", '"', '_', '-', '|', '^', ':', '.');
-				$this->request->data['Paste']['nick'] = Sanitize::paranoid($this->request->data['Paste']['nick'], $allow);
-			}
-			if ($this->request->data['Paste']['save'] == 1 && !empty($this->request->data['Paste']['tags'])) {
-				$allow = array(" ",'.',',');
-				$this->request->data['Tag']['Tag'] = $this->Paste->Tag->saveTags(Sanitize::paranoid($this->request->data['Paste']['tags'],$allow));
-			}
-			Sanitize::clean($this->request->data);
-			if ($this->Paste->save($this->request->data)) {
-				if ($this->request->data['Paste']['save'] == 0) {
+		$this->set('languages', $this->Paste->languages());
+		$this->request->data = array(
+			'Paste' => array(
+				'nick' => $this->nick,
+				'lang' => 'php',
+			)
+		);
+	}
+
+	/**
+	 * Save a new or updated paste.
+	 */
+	public function save() {
+		if ($this->request->is('get')) {
+			return $this->redirect(array('action' => 'add'));
+		}
+
+		if ($this->request->is('post') || $this->request->is('put')) {
+			$this->Paste->create($this->request->data);
+			$result = $this->Paste->save();
+			if (!empty($result)) {
+				if ($result['Paste']['save'] == 0) {
 					$this->Session->setFlash('The Paste is just temporary.');
 				} else {
 					$this->Session->setFlash('The Paste is saved');
 				}
-				$this->redirect('/view/'.$this->request->data['Paste']['temp']);
+				return $this->redirect(array('action' => 'view', $result['Paste']['temp']));
 			} else {
 				$this->Session->setFlash('Please correct errors below.');
-				$this->set('languages', $this->Paste->languages());//set geshi languages
+				$this->set('languages', $this->Paste->languages());
+				$this->render('add');
 			}
 		}
 	}

@@ -16,13 +16,4 @@ class AppController extends Controller {
 
 	var $layout = 'v3';
 
-	function redirect($url, $status = null, $exit = true) {
-		if(is_array($url)) {
-			$url = Router::url($url);
-		}
-		$ajax = ($this->RequestHandler->isAjax())
-		? ($url{0} != '/') ? '/ajax/' : '/ajax' : null;
-		parent::redirect($ajax.$url, $status, $exit);
-	}
-	
 }
