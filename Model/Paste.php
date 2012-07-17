@@ -51,6 +51,27 @@ class Paste extends AppModel
 	);
 
 /**
+ * Before save callback, sets some default data.
+ */
+	public function beforeValidate($options = array()) {
+		if (empty($this->data['Paste']['temp'])) {
+			$this->data['Paste']['temp'] = abs(mt_rand());
+		}
+		return true;
+	}
+
+/**
+ * Before saving the paste, save the tags so they can be associated
+ */
+	public function beforeSave($options = array()) {
+		if (!empty($this->data['Paste']['save']) && !empty($this->data['Paste']['tags'])) {
+			$this->data['Tag']['Tag'] = $this->Tag->saveTags($this->data['Paste']['tags']);
+			unset($this->data['Paste']['tags']);
+		}
+		return true;
+	}
+
+/**
  * Custom finder for saved pastes. Pastes need to have paste_id = null as well
  * as paste_id != null means its a saved version of a paste.
  *

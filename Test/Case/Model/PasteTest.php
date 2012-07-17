@@ -98,4 +98,38 @@ class PasteTest extends CakeTestCase {
 		$this->assertEquals('javascript', $result['javascript']);
 	}
 
+	public function testBeforeValidateDefaultData() {
+		$data = array(
+			'nick' => 'mark',
+			'body' => 'new paste',
+			'lang' => 'php',
+		);
+		$this->Paste->create($data);
+		$result = $this->Paste->save();
+
+		$this->assertEmpty($this->Paste->validationErrors);
+		$this->assertTrue((bool)$result);
+		$this->assertTrue(is_numeric($result['Paste']['temp']), 'temp should be a number');
+	}
+
+	public function testSaveTags() {
+		$data = array(
+			'nick' => 'mark',
+			'body' => 'new paste',
+			'lang' => 'php',
+			'save' => 1,
+			'tags' => 'new, newer, newest'
+		);
+		$this->Paste->create($data);
+		$result = $this->Paste->save();
+		$this->assertTrue((bool)$result);
+	
+		$tags = $this->Paste->Tag->find('count', array(
+			'conditions' => array(
+				'Tag.keyname' => array('new', 'newer', 'newest')
+			)
+		));
+		$this->assertEquals(3, $tags, 'Tags were not created.');
+	}
+
 }

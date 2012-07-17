@@ -20,31 +20,34 @@ class Tag extends AppModel {
  */
 	var $hasAndBelongsToMany = array(
 		'Paste' => array('className' => 'Paste')
-	); 
+	);
 
 	function saveTags($string = null) {
 		$return = array();
 		
-		if($string) {
+		if ($string) {
 			$array = explode(',', $string);
-			foreach($array as $tag) {
+			foreach ($array as $tag) {
 				if (!empty($tag)) {
 					$this->data[$this->name]['name'] = trim($tag);
 					$this->data[$this->name]['keyname'] = preg_replace('/[^a-z0-9]/', '', strtolower($tag));
 					$this->recursive = -1;
-					$existing = $this->find("keyname = '{$this->data[$this->name]['keyname']}'");  
-					if(!empty($existing)) {
+					$existing = $this->find('first', array(
+						'conditions' => array(
+							'keyname' => $this->data[$this->name]['keyname']
+						)
+					));
+					if (!empty($existing)) {
 						$return[] = $existing[$this->name][$this->primaryKey];
 					} else {
 						$this->id = null;
-						if($this->save($this->data)) {
+						if ($this->save($this->data)) {
 							$return[] = $this->id;
 						}
-					} 
-				}	
-			} 
-		}   
-		
+					}
+				}
+			}
+		}
 		return $return;
 	}
 	
