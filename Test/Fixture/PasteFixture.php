@@ -46,7 +46,6 @@ class PasteFixture extends CakeTestFixture {
 			'created' => '2012-07-15 21:48:53',
 			'modified' => '2012-07-15 21:48:53',
 			'save' => 1,
-			'remove' => 1
 		),
 		array(
 			'id' => 2,
@@ -59,7 +58,6 @@ class PasteFixture extends CakeTestFixture {
 			'created' => '2012-07-15 21:48:53',
 			'modified' => '2012-07-15 21:48:53',
 			'save' => 1,
-			'remove' => 1
 		),
 		array(
 			'id' => 3,
@@ -69,10 +67,9 @@ class PasteFixture extends CakeTestFixture {
 			'lang' => 'php',
 			'note' => 'this is temporary',
 			'body' => '<?php echo "banana"',
-			'created' => '2012-07-15 21:48:53',
-			'modified' => '2012-07-15 21:48:53',
+			'created' => '2012-07-13 21:48:53',
+			'modified' => '2012-07-13 21:48:53',
 			'save' => 0,
-			'remove' => 1
 		),
 		array(
 			'id' => 4,
@@ -85,7 +82,6 @@ class PasteFixture extends CakeTestFixture {
 			'created' => '2012-02-10 10:48:53',
 			'modified' => '2012-02-10 10:48:53',
 			'save' => 1,
-			'remove' => 1
 		),
 	);
 
