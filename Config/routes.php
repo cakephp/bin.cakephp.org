@@ -9,10 +9,10 @@
 	Router::connect('/save', array('controller' => 'pastes', 'action' => 'save'));
 	Router::connect('/edit/*', array('controller' => 'pastes', 'action' => 'edit'));
 	Router::connect('/view/*', array('controller' => 'pastes', 'action' => 'view'));
-	Router::connect('/saved/*', array('controller' => 'pastes', 'action' => 'saved', 'page'=>'1'));
-	Router::connect('/list/*', array('controller' => 'pastes', 'action' => 'index', 'page'=>'1'));
-	Router::connect('/nick/:nick/*', array('controller' => 'pastes', 'action' => 'nick', 'nick'=> null, 'page'=>'1'));
-	Router::connect('/search/*', array('controller' => 'pastes', 'action' => 'search', 'page'=>'1'));
+	Router::connect('/saved/*', array('controller' => 'pastes', 'action' => 'saved'));
+	Router::connect('/list/*', array('controller' => 'pastes', 'action' => 'index'));
+	Router::connect('/nick/:nick/*', array('controller' => 'pastes', 'action' => 'nick', 'nick'=> null));
+	Router::connect('/search/*', array('controller' => 'pastes', 'action' => 'search'));
 	Router::connect('/versions/*', array('controller' => 'versions', 'action' => 'saved'));
 	Router::connect('/tags/popular', array('controller' => 'tags', 'action' => 'popular'));
 	Router::connect('/tags/*', array('controller' => 'tags', 'action' => 'show'));
