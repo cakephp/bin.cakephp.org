@@ -24,7 +24,7 @@ endif;
 			<?php echo $this->Time->format('m.d', $paste['Paste']['created']);?>
 		</span>
 		<span class="lang">
-			<?php echo $paste['Paste']['lang'];?>
+			<?php echo h($paste['Paste']['lang']); ?>
 		</span>
 		<?php if($paste['Paste']['save']):?>
 			<span class="saved">
@@ -34,14 +34,17 @@ endif;
 	</div>
 
 	<span class="nick">
-		<?php echo $this->Html->link($paste['Paste']['nick'], array('action'=>'nick', $paste['Paste']['nick']));?>
+		<?php echo $this->Html->link($paste['Paste']['nick'], array('action' => 'nick', $paste['Paste']['nick'])); ?>
 	</span>
 
 	<?php if($paste['Paste']['save']):?>
 		<div class="tags">
 			Tags
-			<?php echo $this->Html->link('add more', '/pastes/tag/'.$paste['Paste']['id'],
-									array('update'=>'tags'));
+			<?php echo $this->Html->link(
+				'add more',
+				array('controller' => 'pastes', 'action' => 'tag', $paste['Paste']['id']),
+				array('update'=>'tags')
+			);
 			?>
 		</div>
 		<div id="tags">
@@ -53,11 +56,11 @@ endif;
 
 <div class="note">
 	<strong>Note</strong> <br/>
-	<?php 
-		if(empty($paste['Paste']['note'])):
-			echo $paste['Paste']['nick'] . ' did not leave a note';
+	<?php
+		if (empty($paste['Paste']['note'])):
+			echo h($paste['Paste']['nick']) . ' did not leave a note';
 		else:
-			echo nl2br($this->Cakebin->htmldecode($paste['Paste']['note']));
+			echo nl2br(h($paste['Paste']['note']));
 		endif;
 	?>
 </div>
@@ -68,7 +71,4 @@ endif;
 
 <?php endif;?>
 </div>
-
-<?php
-	echo $this->element('modify');
-?>
+<?php echo $this->element('modify'); ?>
