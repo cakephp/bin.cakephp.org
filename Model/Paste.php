@@ -68,6 +68,13 @@ class Paste extends AppModel
 			$this->data['Tag']['Tag'] = $this->Tag->saveTags($this->data['Paste']['tags']);
 			unset($this->data['Paste']['tags']);
 		}
+
+		// Handles versioning
+		if (!empty($this->data['Paste']['save']) && !empty($this->data['Paste']['id'])) {
+			$this->data['Paste']['paste_id'] = $this->data['Paste']['id'];
+			$this->id = false;
+			unset($this->data['Paste']['id']);
+		}
 		return true;
 	}
 

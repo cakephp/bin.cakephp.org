@@ -132,4 +132,35 @@ class PasteTest extends CakeTestCase {
 		$this->assertEquals(3, $tags, 'Tags were not created.');
 	}
 
+	public function testSaveVersion() {
+		$data = array(
+			'nick' => 'mark',
+			'body' => 'new paste',
+			'lang' => 'php',
+			'save' => 1,
+		);
+		$this->Paste->create($data);
+		$result = $this->Paste->save();
+		$this->assertTrue((bool)$result);
+
+		$originalId = $this->Paste->id;
+		$data = array(
+			'Paste' => array(
+				'id' => $originalId,
+				'nick' => 'mark',
+				'body' => 'newer paste',
+				'lang' => 'php',
+				'save' => 1,
+			)
+		);
+		$this->Paste->create($data);
+		$result = $this->Paste->save();
+
+		$this->assertTrue((bool)$result);
+		$this->assertNotEquals($this->Paste->id, $originalId);
+
+		$result = $this->Paste->read();
+		$this->assertEquals($originalId, $result['Paste']['paste_id']);
+	}
+
 }
