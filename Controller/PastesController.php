@@ -83,7 +83,7 @@ class PastesController extends AppController {
 
 	public function saved($id = null) {
 		if (!$id) {
-			return $this->setAction('index');
+			return $this->redirect(array('action' => 'index'));
 		}
 		$this->Paste->recursive = 2;
 		$this->request->data = $this->Paste->read(null, $id);
@@ -91,30 +91,28 @@ class PastesController extends AppController {
 			$this->set('paste', $this->request->data);
 			$this->set('original',  $this->request->data['Original']);
 			$this->set('languages',$this->Paste->languages());//set geshi languages
-			$this->__setPasteId();
 			unset($this->request->data['Paste']['nick']);
 			$this->render('view');
 		} else {
-			$this->redirect('/list');
+			$this->redirect(array('action' => 'index'));
 		}
 	}
 
 	public function view($temp = null) {
-		if(!$temp && empty($this->request->data)) {
+		if (!$temp && empty($this->request->data)) {
 			return false;
 		}
-		if(empty($this->request->data)) {
-			$this->Paste->unbindModel(array('hasMany'=>array('Version')));
-			$this->request->data  = $this->Paste->findByTemp($temp, null, 'Paste.created DESC');
+		if (empty($this->request->data)) {
+			$this->Paste->unbindModel(array('hasMany' => array('Version')));
+			$this->request->data = $this->Paste->findByTemp($temp, null, 'Paste.created DESC');
 		}
-		if(!empty($this->request->data)) {
+		if (!empty($this->request->data)) {
 			$this->set('paste', $this->request->data);
 			$this->set('languages', $this->Paste->languages());//set geshi languages
-			$this->__setPasteId();
 			unset($this->request->data['Paste']['nick']);
 		} else {
 			$this->Session->setFlash('Invalid Paste');
-			$this->redirect('/list');
+			$this->redirect(array('action' => 'index'));
 		}
 	}
 
@@ -186,69 +184,21 @@ class PastesController extends AppController {
 		}
 	}
 
+	/**
+	 * Get the edit page, it submits to the save action.
+	 */
 	public function edit($id = null) {
 		$this->set('nick', null);
 		if (empty($this->request->data)) {
 			if (!$id) {
 				return false;
 			}
-			$this->set('languages',$this->Paste->languages());//set geshi languages
+			$this->set('languages',$this->Paste->languages());
 			$this->request->data = $this->Paste->read(null, $id);
-			$this->__setPasteId();
-			$this->set('nick', $this->request->data['Paste']['nick']);
-			unset($this->request->data['Paste']['nick']);
-			$this->render(); exit();
-		} else if(!empty($this->request->data['Other']['comment']) || !empty($this->request->data['Other']['title']) || !empty($this->request->data['Other']['date'])) {
-			$this->request->data['Paste']['created'] = date('Y-m-d H:i:s');
-			$this->request->data['Tag'] = null;
-			$this->view();
-			$this->render('view');
-		} else if(!empty($this->request->data['NewPaste'])) {
-
-			$this->request->data['Paste'] = $this->request->data['NewPaste'];
-
-			if(empty($this->request->data['Paste']['temp'])) {
-				$this->request->data['Paste']['temp'] = abs(mt_rand());
-			}
-			if(!empty($this->request->data['Paste']['nick'])) {
-				$allow = array(',', "'", '"', '_', '-', '|', '^', ':', '.');
-				$this->request->data['Paste']['nick'] = Sanitize::paranoid($this->request->data['Paste']['nick'], $allow);
-			}
-			if(!empty($this->request->data['Paste']['paste_id'])) {
-				$this->Paste->id = null;
-				$this->request->data['Paste']['id'] = null;
-			}
-
-			Sanitize::clean($this->request->data);
-			if($this->Paste->save($this->request->data)) {
-				if($this->request->data['Paste']['save'] == '0') {
-					$this->Session->setFlash('The Paste is just temporary.');
-					$this->redirect('/view/'.$this->request->data['Paste']['temp']);
-				} else {
-					$this->Session->setFlash('The Paste is saved');
-					$this->redirect('/saved/'.$this->Paste->id);
-				}
-			} else {
-				$this->Session->setFlash('Please correct errors.');
-				$this->set('nick', $this->Paste->field('nick'));
-				$this->set('languages',$this->Paste->languages());//set geshi Paste->languages
-			}
 		}
 	}
 
 	protected function _purge() {
 		$this->Paste->purgeTemporary();
-	}
-
-	protected function __setPasteId() {
-		if($this->request->data['Paste']['save'] == '0') {
-			if(!empty($this->request->data['Paste']['paste_id'])) {
-				unset($this->request->data['Paste']['paste_id']);
-			}
-		} else {
-			if(empty($this->request->data['Paste']['paste_id'])) {
-				$this->request->data['Paste']['paste_id'] = $this->request->data['Paste']['id'];
-			}
-		}
 	}
 }
