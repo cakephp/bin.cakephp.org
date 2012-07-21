@@ -4,9 +4,9 @@ App::uses('Folder', 'Utility');
 
 class PastesController extends AppController {
 
-	var $nick = null;
+	public $nick = null;
 
-	var $paginate = array(
+	public $paginate = array(
 		'Paste' => array(
 			'saved',
 			'order' => 'Paste.created DESC',
@@ -14,9 +14,9 @@ class PastesController extends AppController {
 		)
 	);
 
-	var $components = array('Session', 'Security');
+	public $components = array('Session', 'Security');
 
-	function _validatePost() {
+	protected function _validatePost() {
 		if($this->request->action === 'edit'){
 			$this->Security->blackHoleCallback = 'edit';
 		} elseif($this->request->action === 'add') {
@@ -24,7 +24,7 @@ class PastesController extends AppController {
 		}
 	}
 
-	function beforeFilter() {
+	public function beforeFilter() {
 		$this->_validatePost();
 		if (!empty($this->request->params['nick'])) {
 			$this->nick = $this->request->params['nick'];
@@ -32,13 +32,13 @@ class PastesController extends AppController {
 		$this->set('nick', $this->nick);
 	}
 
-	function beforeRender() {
+	public function beforeRender() {
 		if (!empty($this->request->data['Paste'])) {
 			$this->request->data['NewPaste'] = $this->request->data['Paste'];
 		}
 	}
 
-	function index() {
+	public function index() {
 		$conditions = array();
 		if ($this->nick) {
 			$conditions['Paste.nick'] = $this->nick;
@@ -48,11 +48,11 @@ class PastesController extends AppController {
 		$this->set('pastes', $pastes);
 	}
 
-	function nick() {
+	public function nick() {
 		$this->setAction('index');
 	}
 
-	function search() {
+	public function search() {
 		$conditions = array();
 		$q = null;
 		if(!empty($this->request->params['url']['q'])) {
@@ -71,17 +71,17 @@ class PastesController extends AppController {
 		));
 	}
 
-	function recent() {
+	public function recent() {
 		$this->Paste->recursive = 0;
 		return $this->Paste->find('recent');
 	}
 
-	function recent_versions() {
+	public function recent_versions() {
 		$this->Paste->recursive = 0;
 		return $this->Paste->find('recentVersions');
 	}
 
-	function saved($id = null) {
+	public function saved($id = null) {
 		if (!$id) {
 			return $this->setAction('index');
 		}
@@ -99,7 +99,7 @@ class PastesController extends AppController {
 		}
 	}
 
-	function view($temp = null) {
+	public function view($temp = null) {
 		if(!$temp && empty($this->request->data)) {
 			return false;
 		}
@@ -118,7 +118,7 @@ class PastesController extends AppController {
 		}
 	}
 
-	function tag($id = null) {
+	public function tag($id = null) {
 		$this->set('id', $id);
 		$this->set('tags_added', false);
 		$this->Paste->unbindModel(array('hasMany'=>array('Version')));
@@ -150,7 +150,7 @@ class PastesController extends AppController {
 	/**
 	 * Get the form to add a new paste.
 	 */
-	function add() {
+	public function add() {
 		$this->set('languages', $this->Paste->languages());
 		$this->request->data = array(
 			'Paste' => array(
@@ -186,10 +186,10 @@ class PastesController extends AppController {
 		}
 	}
 
-	function edit($id = null) {
+	public function edit($id = null) {
 		$this->set('nick', null);
 		if (empty($this->request->data)) {
-			if(!$id) {
+			if (!$id) {
 				return false;
 			}
 			$this->set('languages',$this->Paste->languages());//set geshi languages
@@ -236,11 +236,11 @@ class PastesController extends AppController {
 		}
 	}
 
-	function __purge() {
+	protected function _purge() {
 		$this->Paste->purgeTemporary();
 	}
 
-	function __setPasteId() {
+	protected function __setPasteId() {
 		if($this->request->data['Paste']['save'] == '0') {
 			if(!empty($this->request->data['Paste']['paste_id'])) {
 				unset($this->request->data['Paste']['paste_id']);
