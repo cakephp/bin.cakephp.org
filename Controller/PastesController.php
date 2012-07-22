@@ -38,6 +38,9 @@ class PastesController extends AppController {
 		}
 	}
 
+	/**
+	 * Display a list of saved posts.
+	 */
 	public function index() {
 		$conditions = array();
 		if ($this->nick) {
@@ -52,11 +55,14 @@ class PastesController extends AppController {
 		$this->setAction('index');
 	}
 
+	/**
+	 * Search the saved posts.
+	 */
 	public function search() {
 		$conditions = array();
 		$q = null;
-		if(!empty($this->request->params['url']['q'])) {
-			$q = $this->request->params['url']['q'];
+		if (!empty($this->request->query['q'])) {
+			$q = $this->request->query['q'];
 		}
 		if ($q) {
 			$conditions['OR'] = array(
@@ -71,19 +77,12 @@ class PastesController extends AppController {
 		));
 	}
 
-	public function recent() {
-		$this->Paste->recursive = 0;
-		return $this->Paste->find('recent');
-	}
-
-	public function recent_versions() {
-		$this->Paste->recursive = 0;
-		return $this->Paste->find('recentVersions');
-	}
-
+	/**
+	 * View a saved paste and its revisions.
+	 */
 	public function saved($id = null) {
 		if (!$id) {
-			return $this->redirect(array('action' => 'index'));
+			return $this->setAction('index');
 		}
 		$this->Paste->recursive = 2;
 		$this->request->data = $this->Paste->read(null, $id);
@@ -99,8 +98,8 @@ class PastesController extends AppController {
 	}
 
 	public function view($temp = null) {
-		if (!$temp && empty($this->request->data)) {
-			return false;
+		if (!$temp) {
+			throw new NotFoundException();
 		}
 		if (empty($this->request->data)) {
 			$this->Paste->unbindModel(array('hasMany' => array('Version')));
@@ -110,9 +109,6 @@ class PastesController extends AppController {
 			$this->set('paste', $this->request->data);
 			$this->set('languages', $this->Paste->languages());//set geshi languages
 			unset($this->request->data['Paste']['nick']);
-		} else {
-			$this->Session->setFlash('Invalid Paste');
-			$this->redirect(array('action' => 'index'));
 		}
 	}
 
@@ -165,7 +161,6 @@ class PastesController extends AppController {
 		if ($this->request->is('get')) {
 			return $this->redirect(array('action' => 'add'));
 		}
-
 		if ($this->request->is('post') || $this->request->is('put')) {
 			$this->Paste->create($this->request->data);
 			$result = $this->Paste->save();
@@ -188,17 +183,14 @@ class PastesController extends AppController {
 	 * Get the edit page, it submits to the save action.
 	 */
 	public function edit($id = null) {
+		if (!$id) {
+			throw new NotFoundException();
+		}
 		$this->set('nick', null);
 		if (empty($this->request->data)) {
-			if (!$id) {
-				return false;
-			}
 			$this->set('languages',$this->Paste->languages());
 			$this->request->data = $this->Paste->read(null, $id);
 		}
 	}
 
-	protected function _purge() {
-		$this->Paste->purgeTemporary();
-	}
 }
