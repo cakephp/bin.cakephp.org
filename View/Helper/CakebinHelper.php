@@ -1,12 +1,16 @@
 <?php
-class CakebinHelper extends Helper {
+App::import('Vendor', 'Geshi');
+App::uses('AppHelper', 'View/Helper');
+App::uses('Hash', 'Utility');
+
+class CakebinHelper extends AppHelper {
 	
 	var $helpers = array('Text');
+
 	var $Geshi;
 	
 	function init($lang = 'php') {
-		App::import('Vendor', 'Geshi');
-		$this->Geshi = & new Geshi(null, null);
+		$this->Geshi = new Geshi(null, null);
 		$this->Geshi->set_language($lang);
 	}
 	function htmldecode($string) {
@@ -31,8 +35,7 @@ class CakebinHelper extends Helper {
 	}
 	function aList($array) {
 		if(!empty($array)) {
-			uses('Set');
-			$array = Set::extract($array, '{n}.name');
+			$array = Hash::extract($array, '{n}.name');
 			if(!empty($array)) {
 				asort($array);
 				return $this->Text->toList(array_values($array));
