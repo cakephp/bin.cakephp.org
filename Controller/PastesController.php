@@ -32,12 +32,6 @@ class PastesController extends AppController {
 		$this->set('nick', $this->nick);
 	}
 
-	public function beforeRender() {
-		if (!empty($this->request->data['Paste'])) {
-			$this->request->data['NewPaste'] = $this->request->data['Paste'];
-		}
-	}
-
 	/**
 	 * Display a list of saved posts.
 	 */

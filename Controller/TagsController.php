@@ -12,7 +12,7 @@ class TagsController extends AppController
 	
 	function show($keyname = null) {
 		if (!$keyname) {
-			return false;
+			throw new NotFoundException('No pastes match');
 		}
 		$this->set('tag', $this->Tag->findByKeyname($keyname));
 		$this->set('recent', $this->Tag->Paste->find('recent'));
