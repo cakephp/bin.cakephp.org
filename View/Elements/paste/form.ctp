@@ -5,6 +5,7 @@
 ?>
 <?php echo $this->Form->create('Paste', array('action' => 'save')); ?>
 	<?php echo $this->Form->hidden('Paste.id'); ?>
+	<?php echo $this->Form->hidden('Paste.temp'); ?>
 	<div class="left">
 		<?php
 		echo $this->Form->input('Paste.body', array(
