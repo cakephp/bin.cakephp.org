@@ -6,7 +6,7 @@
  */
 	Router::connect('/', array('controller' => 'pastes', 'action' => 'add'));
 	Router::connect('/add/:nick', array('controller' => 'pastes', 'action' => 'add'));
-	Router::connect('/save', array('controller' => 'pastes', 'action' => 'save'));
+	Router::connect('/save/*', array('controller' => 'pastes', 'action' => 'save'));
 	Router::connect('/edit/*', array('controller' => 'pastes', 'action' => 'edit'));
 	Router::connect('/view/*', array('controller' => 'pastes', 'action' => 'view'));
 	Router::connect('/saved/*', array('controller' => 'pastes', 'action' => 'saved'));

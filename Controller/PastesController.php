@@ -101,7 +101,7 @@ class PastesController extends AppController {
 		}
 		if (!empty($this->request->data)) {
 			$this->set('paste', $this->request->data);
-			$this->set('languages', $this->Paste->languages());//set geshi languages
+			$this->set('languages', $this->Paste->languages());
 			unset($this->request->data['Paste']['nick']);
 		}
 	}
