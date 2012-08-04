@@ -18,3 +18,4 @@
 
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 	Router::connect('/pastes/:action/:nick/*', array('controller' => 'pastes'));
+	Router::connect('/asset/*', array('plugin' => 'asset_compress', 'controller' => 'assets', 'action' => 'get'));

@@ -12,7 +12,15 @@ class AppController extends Controller {
 
 	public $components = array('RequestHandler');
 
-	public $helpers = array('Html', 'Form', 'Cakebin', 'Geshi.Geshi', 'Text', 'Time');
+	public $helpers = array(
+		'Html',
+		'Form',
+		'Text',
+		'Time',
+		'Cakebin',
+		'Geshi.Geshi',
+		'AssetCompress.AssetCompress',
+	);
 
 	public $layout = 'v3';
 
