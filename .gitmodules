@@ -1,0 +1,6 @@
+[submodule "Plugin/AssetCompress"]
+	path = Plugin/AssetCompress
+	url = git://github.com/markstory/asset_compress.git
+[submodule "Plugin/Geshi"]
+	path = Plugin/Geshi
+	url = git://github.com/markstory/cakephp_geshi.git
