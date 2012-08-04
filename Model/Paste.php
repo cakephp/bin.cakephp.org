@@ -161,12 +161,10 @@ class Paste extends AppModel
 		if (!empty($this->_languages)) {
 			return $this->_languages;
 		}
+		$geshiDir = App::pluginPath('Geshi') . 'Vendor/geshi/';
+
 		$names = array();
-		if (!($Folder = new Folder(APP.'Vendor'.DS.'geshi'))) {
-			if (!($Folder = new  Folder(ROOT . 'Vendor' .DS. 'geshi'))) {
-				$names[] = 'No languages available!';
-			}
-		}
+		$Folder = new Folder($geshiDir);
 		$languages = $Folder->read(true, true);
 		if (!empty($languages[1])) {
 			foreach ($languages[1] as $lang) {

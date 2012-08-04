@@ -22,7 +22,7 @@
 			</span>
 			
 			<span class="note">
-				<?php echo $this->Text->truncate(strip_tags($this->Cakebin->htmldecode($paste['note'])));?>
+				<?php echo h($this->Text->truncate($paste['note']));?>
 			</span>
 		</a>
 	<?php endforeach;?>

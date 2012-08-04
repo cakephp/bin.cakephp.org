@@ -1,5 +1,5 @@
 <div class="versions">
-<?php 
+<?php
 if(!empty($original['id'])):
 ?>
 	<h4>
@@ -14,28 +14,27 @@ if(!empty($original['id'])):
 			</span>
 
 			<span class="nick">
-				<?php echo $original['nick'];?>
+				<?php echo h($original['nick']); ?>
 			</span>
 
 			<span class="note">
-				<?php echo $this->Text->truncate($original['note']);?>
+				<?php echo h($this->Text->truncate($original['note']));?>
 			</span>
 		</a>
 	</div>
-<?php 
+<?php
 endif;
-?>
-<?php 
-if(!empty($original['Version'])):
+
+if (!empty($original['Version'])):
 	$versions = $original['Version'];
 endif;
-if(!empty($paste['Version'])):
+
+if (!empty($paste['Version'])):
 	$versions = $paste['Version'];
 endif;
 ?>
 
-<?php if(!empty($versions)):
-?>
+<?php if(!empty($versions)): ?>
 <h4>
 	<a href="#" onclick="Element.toggle('versions');">
 		Versions
@@ -44,7 +43,7 @@ endif;
 <div id="versions" style="display:none">
 <?php 
 	foreach ($versions as $paste):
-		if($paste['id'] !== $this->passedArgs[0]):
+		if ($paste['id'] !== $this->passedArgs[0]):
 ?>
 		<a href="<?php echo $this->Html->url('/saved/'.$paste['id'])?>">
 			<span class="date">
@@ -56,11 +55,10 @@ endif;
 			</span>
 	
 			<span class="note">
-				<?php echo $this->Text->truncate($paste['note']);?>
+				<?php echo h($this->Text->truncate($paste['note'])); ?>
 			</span>
 		</a>
-	
-<?php 
+<?php
 		endif;
 	endforeach;
 ?>

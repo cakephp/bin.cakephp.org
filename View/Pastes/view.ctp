@@ -1,19 +1,12 @@
 <div class="paste" id="saved">
-<?php
-if(empty($paste)):
-	echo '<h2 class="error_message">Error try another one</h2>';
-else:
-$this->Cakebin->init($paste['Paste']['lang']);
-?>
 
 <style>
 	.li1 {background:#f4f4f4;}
 	.li2 {background:#ffffff;}
-	<?php echo $this->Cakebin->get_stylesheet();?>
 </style>
 
 <?php
-if(!empty($original) || !empty($versions)):
+if (!empty($original) || !empty($versions)):
 	echo $this->element('versions');
 endif;
 ?>
@@ -26,7 +19,7 @@ endif;
 		<span class="lang">
 			<?php echo h($paste['Paste']['lang']); ?>
 		</span>
-		<?php if($paste['Paste']['save']):?>
+		<?php if ($paste['Paste']['save']): ?>
 			<span class="saved">
 				saved
 			</span>
@@ -66,9 +59,8 @@ endif;
 </div>
 
 <div class="body">
-	<?php echo $this->Cakebin->format($paste['Paste']['body']);?>
+	<?php echo $this->Geshi->highlightText($paste['Paste']['body'], $paste['Paste']['lang']);?>
 </div>
 
-<?php endif;?>
 </div>
 <?php echo $this->element('modify'); ?>

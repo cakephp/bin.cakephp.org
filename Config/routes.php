@@ -11,7 +11,7 @@
 	Router::connect('/view/*', array('controller' => 'pastes', 'action' => 'view'));
 	Router::connect('/saved/*', array('controller' => 'pastes', 'action' => 'saved'));
 	Router::connect('/list/*', array('controller' => 'pastes', 'action' => 'index'));
-	Router::connect('/nick/:nick/*', array('controller' => 'pastes', 'action' => 'nick'));
+	Router::connect('/nick/:nick', array('controller' => 'pastes', 'action' => 'nick'));
 	Router::connect('/search/*', array('controller' => 'pastes', 'action' => 'search'));
 	Router::connect('/tags/popular', array('controller' => 'tags', 'action' => 'popular'));
 	Router::connect('/tags/*', array('controller' => 'tags', 'action' => 'show'));

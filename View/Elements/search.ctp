@@ -1,5 +1,18 @@
-<?php $q = isset($q) ? $q : null;?>
-<form action="<?php echo $this->Html->url('/search');?>" method="get" id="search">
-	<input name="q" value="<?php echo $q;?>" type="text" size="20"/>
-	<input name="search" value="search" class="submit" type="submit">
-</form>
+<?php
+$q = isset($q) ? $q : null;
+echo $this->Form->create('Paste', array(
+	'type' => 'get',
+	'id' => 'search',
+	'url' => array('controller' => 'pastes', 'action' => 'search')
+));
+echo $this->Form->input('q', array(
+	'div' => false,
+	'label' => false,
+	'size' => 20,
+	'value' => $q
+));
+echo $this->Form->submit('Search', array(
+	'class' => 'submit',
+	'div' => false,
+));
+echo $this->Form->end();

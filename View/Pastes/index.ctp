@@ -9,35 +9,32 @@
 					<?php echo $this->Time->format('m.d', $paste['Paste']['created']);?>
 				</span>
 				<span class="lang">
-					<?php echo $paste['Paste']['lang'];?>
+					<?php echo h($paste['Paste']['lang']); ?>
 				</span>
 			</div>
 	
 			<span class="nick">
-				<?php echo $paste['Paste']['nick'];?>
+				<?php echo h($paste['Paste']['nick']); ?>
 			</span>
 	
 		
 			<span class="note">
-				<?php echo $this->Text->truncate(strip_tags($this->Cakebin->htmldecode($paste['Paste']['note'])));?>
+				<?php echo h($this->Text->truncate($paste['Paste']['note'])); ?>
 			</span>
 			
 			<span class="note">
-				<?php echo $this->Text->truncate(strip_tags($this->Cakebin->htmldecode($paste['Paste']['body'])));?>
+				<?php echo h($this->Text->truncate($paste['Paste']['body'])); ?>
 			</span>
 		</a>
 	</div>
-	
 <?php endforeach;?>
 </div>
 
 <div class="paging">
 	<?php $this->Paginator->options(array('url'=> array('nick'=> $nick)));?>
 	<?php echo $this->Paginator->prev('<< '.__('previous'), array(), null, array('class'=>'disabled'));?>
- | 	<?php echo $this->Paginator->numbers();?>
+ |  <?php echo $this->Paginator->numbers();?>
 	<?php echo $this->Paginator->next(__('next').' >>', array(), null, array('class'=>'disabled'));?>
 </div>
 
-<?php
-echo $this->element('tag_cloud');
-?>
+<?php echo $this->element('tag_cloud'); ?>

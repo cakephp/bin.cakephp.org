@@ -10,10 +10,10 @@
  */
 class AppController extends Controller {
 
-	var $components = array('RequestHandler');
+	public $components = array('RequestHandler');
 
-	var $helpers = array('Html', 'Form', 'Cakebin', 'Text', 'Time');
+	public $helpers = array('Html', 'Form', 'Cakebin', 'Geshi.Geshi', 'Text', 'Time');
 
-	var $layout = 'v3';
+	public $layout = 'v3';
 
 }

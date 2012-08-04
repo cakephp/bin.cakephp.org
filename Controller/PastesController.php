@@ -95,15 +95,15 @@ class PastesController extends AppController {
 		if (!$temp) {
 			throw new NotFoundException();
 		}
+		$this->Paste->unbindModel(array('hasMany' => array('Version')));
+		$this->request->data = $this->Paste->findByTemp($temp, null, 'Paste.created DESC');
+
 		if (empty($this->request->data)) {
-			$this->Paste->unbindModel(array('hasMany' => array('Version')));
-			$this->request->data = $this->Paste->findByTemp($temp, null, 'Paste.created DESC');
+			throw new NotFoundException();
 		}
-		if (!empty($this->request->data)) {
-			$this->set('paste', $this->request->data);
-			$this->set('languages', $this->Paste->languages());
-			unset($this->request->data['Paste']['nick']);
-		}
+		$this->set('paste', $this->request->data);
+		$this->set('languages', $this->Paste->languages());
+		unset($this->request->data['Paste']['nick']);
 	}
 
 	public function tag($id = null) {

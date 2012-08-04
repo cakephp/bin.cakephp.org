@@ -1,5 +1,5 @@
 <?php
-if(!empty($paste)):
+if (!empty($paste)):
 	echo $this->Cakebin->aList($paste['Tag']);
 endif;
 ?>
@@ -8,15 +8,15 @@ endif;
 <?php echo $this->Form->create('Paste', array('id'=>'tagform', 'action'=>'tag'));?>
 	<div>
 		<label for="tag"><em>comma seperated</em><br/>
-	 	<?php echo $this->Form->text('Paste.tags', array('size' => '36')) ?>
+		<?php echo $this->Form->text('Paste.tags', array('size' => '36')) ?>
 	</div>
 	<span>
-		<?php 
+		<?php
 	    	echo $ajax->submit('Add', array('update'=>'tags', 'div'=> false));
-		?>  
+		?>
 		<span id="cancel">
 			or <a href="#tag" onclick="Effect.BlindUp('tagform');">Cancel</a>
-		</span>                                                                                                          
-	</span>	
+		</span>
+	</span>
 </form>
 <?php endif;?>
