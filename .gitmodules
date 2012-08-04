@@ -4,3 +4,6 @@
 [submodule "Plugin/Geshi"]
 	path = Plugin/Geshi
 	url = git://github.com/markstory/cakephp_geshi.git
+[submodule "Plugin/Csfnavbar"]
+	path = Plugin/Csfnavbar
+	url = git://github.com/cakephp/csfnavbar
