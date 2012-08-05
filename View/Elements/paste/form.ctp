@@ -9,52 +9,48 @@
 
 	<div class="row">
 		<?php
-		echo $this->Form->input('Paste.nick', array(
-			'div' => array('class' => 'columns six'),
-			'label' => array('class' => 'inline'),
-			'size' => 30,
-		));
-		echo $this->Form->input('Paste.lang', array(
-			'div' => array('class' => 'columns six'),
-			'label' => array('class' => 'inline', 'text' => 'Language'),
-			'options' => $languages,
-			'class' => 'inline',
-		));
-		?>
-	</div>
-	<div class="row">
-		<?php
 		echo $this->Form->input('Paste.body', array(
-			'div' => array('columns twelve'),
+			'div' => array('class' => 'columns eight'),
 			'label' => false,
 			'type' => 'textarea',
 			'class' => 'expand',
 			'rows' => 20,
 		));
 		?>
-	</div>
-	<div class="row">
+		<div class="columns four">
 		<?php
+		echo $this->Form->input('Paste.nick', array(
+			'div' => array('class' => 'row form-field'),
+			'class' => 'input-text',
+			'size' => 30,
+		));
+		echo $this->Form->input('Paste.lang', array(
+			'div' => array('class' => 'row form-field'),
+			'label' => 'Language',
+			'options' => $languages,
+		));
 		echo $this->Form->input('Paste.note', array(
-			'div' => array('class' => 'columns four'),
+			'div' => array('class' => 'row form-field'),
 			'label' => 'Note',
 			'type' => 'textarea',
 			'class' => 'expand',
 			'rows' => 4,
 		));
 		echo $this->Form->input('Paste.save', array(
-			'div' => array('class' => 'columns four'),
+			'div' => array('class' => 'row form-field'),
 			'type' => 'checkbox',
 			'label' => array('text' => 'Save', 'class' => 'inline'),
 			'after' => ' <span class="example">Saved pastes turn on versioning.</span>',
 			'onclick' => 'Element.toggle("tags");'
 		));
 		echo $this->Form->submit('Submit', array(
-			'div' => array('class' => 'columns four'),
-			'class' => 'button red right',
+			'div' => array('class' => 'row form-field'),
+			'class' => 'button red',
 		));
 		?>
+		</div>
 	</div>
+
 	<div class="right">
 		<div id="tags" style="display:none" class="optional">
 			<?php

@@ -124,6 +124,7 @@ a:hover {
 }
 
 /* Red buttons */
+.alert-box.error,
 .button.red {
 	background: #C92434;
 
@@ -147,13 +148,13 @@ pre, code {
 pre {
 	margin-bottom: 18px;
 	overflow-x: auto;
-    padding: 8px;
-    background: #f2f2f2;
-    color: #222;
-    line-height: 120%;
-    -moz-box-shadow: inset 0px 1px 4px rgba(0,0,0,0.15);
-    -webkit-box-shadow: inset 0px 1px 4px rgba(0,0,0,0.15);
-    box-shadow: inset 0px 1px 4px rgba(0,0,0,0.15);
+	padding: 8px;
+	background: #f2f2f2;
+	color: #222;
+	line-height: 120%;
+	-moz-box-shadow: inset 0px 1px 4px rgba(0,0,0,0.15);
+	-webkit-box-shadow: inset 0px 1px 4px rgba(0,0,0,0.15);
+	box-shadow: inset 0px 1px 4px rgba(0,0,0,0.15);
 }
 pre::-webkit-scrollbar {
     height: 10px;
@@ -232,6 +233,18 @@ ul ul {
 	-webkit-border-radius: 0;
 	-moz-border-radius: 0;
 	border-radius: 0;
+}
+
+/** Forms **/
+.error-message {
+	color: #C92434;
+}
+
+select.form-error,
+.input-text.form-error,
+.form-error {
+	border: 1px solid #C92434;
+	background: rgba(255,0,0,0.15);
 }
 
 #cakephp-global-navigation .nav-select {

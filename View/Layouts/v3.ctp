@@ -48,7 +48,11 @@
 	<div id="content" class="row">
 		<div class="columns twelve clearfix">
 		<?php
-			echo $this->Session->flash();
+			echo $this->Session->flash('flash', array(
+				'params' => array(
+					'class' => 'alert-box error',
+				)
+			));
 			echo $content_for_layout;
 		?>
 		</div>

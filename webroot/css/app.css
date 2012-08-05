@@ -109,7 +109,12 @@ body {
 }
 
 
-/* Paste creation */
+/**
+ * Forms
+ */
+.form-field {
+	margin-bottom: 9px;
+}
 .example {
 	color: #888;
 	font-size: 10px;
