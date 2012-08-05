@@ -100,7 +100,25 @@ body {
 #content {
 	padding-top: 20px;
 }
+.footer {
+	clear: both;
+}
 .footer,
 .footer-push {
 	height: 94px;
+}
+
+
+/* Paste creation */
+.example {
+	color: #888;
+	font-size: 10px;
+}
+.inline {
+	display: inline;
+}
+.required label:after {
+	content: ' * ';
+	color: #C92434;
+	display: inline;
 }

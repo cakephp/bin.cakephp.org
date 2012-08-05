@@ -46,13 +46,10 @@
 	</div>
 
 	<div id="content" class="row">
-		<div class="columns twelve">
-		<?php 
-				if ($this->Session->check('Message.flash'))
-				{
-					$this->Session->flash();
-				}
-				echo $content_for_layout;
+		<div class="columns twelve clearfix">
+		<?php
+			echo $this->Session->flash();
+			echo $content_for_layout;
 		?>
 		</div>
 		<div class="footer-push"></div>
@@ -60,10 +57,9 @@
 </div>
 
 <div class="footer">
+	<div class="row">
 	&copy; <?php echo date('Y'); ?> Cake Software Foundation
-	<a href="http://www.cakephp.org/" target="_new" style="display: block;padding: 4px 0;border: 0">
-		<?php echo $this->Html->image('cake.power.gif', array('alt'=>"CakePHP : Rapid Development Framework", 'border'=>"0"));?>
-	</a>
+	</div>
 </div>
 
 </body>
