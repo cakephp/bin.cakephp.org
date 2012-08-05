@@ -2,11 +2,14 @@
 /**
  * Add / Edit / Update form
  */
-?>
-<?php echo $this->Form->create('Paste', array('action' => 'save')); ?>
-	<?php echo $this->Form->hidden('Paste.id'); ?>
-	<?php echo $this->Form->hidden('Paste.temp'); ?>
 
+echo $this->Form->create('Paste', array(
+	'action' => 'save',
+	'class' => 'nice',
+));
+echo $this->Form->hidden('Paste.id');
+echo $this->Form->hidden('Paste.temp');
+?>
 	<div class="row">
 		<?php
 		echo $this->Form->input('Paste.body', array(
@@ -44,7 +47,7 @@
 			'onclick' => 'Element.toggle("tags");'
 		));
 		echo $this->Form->submit('Submit', array(
-			'div' => array('class' => 'row form-field'),
+			'div' => array('class' => 'row'),
 			'class' => 'button red',
 		));
 		?>
