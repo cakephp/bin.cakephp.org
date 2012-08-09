@@ -180,4 +180,4 @@ CakeLog::config('error', array(
 	'file' => 'error',
 ));
 
-CakePlugin::load(array('Geshi', 'AssetCompress'));
+CakePlugin::load(array('Geshi', 'AssetCompress', 'Csfnavbar'));
