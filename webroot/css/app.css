@@ -163,11 +163,6 @@ body {
 	color:#000;
 }
 
-/* Line highlights */
-.li1 {
-	background: #f2f2f2;
-}
-
 /* comments */
 .co1,
 .co4,
@@ -185,7 +180,7 @@ body {
 
 /* brackets */
 .br0 {
-	color:#222;
+	color: #222;
 }
 
 /* strings */
@@ -212,8 +207,6 @@ body {
 	color:#a71d5d;
 }
 
-/* string */
-
 /* vars */
 .re0 {
 	color: #234aa0;
@@ -223,32 +216,32 @@ body {
 /* classnames */
 [lang=css] .kw2,
 .css .kw2 {
-	color:#0a0aa5;
+	color: #864938;
 }
-.re1 {
-	color: #b701bb;
+[lang=css] .re1 {
+	color: #C92434;
 }
+
 /* px values */
-[lang=css] .re3,
-.css .re3 {
+[lang=css] .re3 {
 	color:#059532;
 }
 
 /** Diffs **/
 /* Diff headers */
-.re3,
-.re4 {
+[lang=diff] .re3,
+[lang=diff] .re4 {
 	background: rgb(220, 220, 220);
 	display: block;
 }
 
 /* Diff highlights */
-.re7,
-.re8 {
+[lang=diff] .re7,
+[lang=diff] .re8 {
 	display: block;
 	background: rgb(221, 255, 221);
 }
-.re7 {
+[lang=diff] .re7 {
 	background: rgb(255, 221, 221);
 }
 
