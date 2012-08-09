@@ -1,10 +1,5 @@
 <div class="paste" id="saved">
 
-<style>
-	.li1 {background:#f4f4f4;}
-	.li2 {background:#ffffff;}
-</style>
-
 <?php
 if (!empty($original) || !empty($versions)):
 	echo $this->element('versions');
@@ -58,7 +53,7 @@ endif;
 	?>
 </div>
 
-<div class="body">
+<div class="code body" lang="<?php echo h($paste['Paste']['lang']); ?>">
 	<?php echo $this->Geshi->highlightText($paste['Paste']['body'], $paste['Paste']['lang']);?>
 </div>
 
