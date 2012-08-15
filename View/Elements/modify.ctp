@@ -1,8 +1,3 @@
-<h4>
-<a href="#modify" onclick="Element.toggle('modify');">
-	Modify this Paste
-</a>
-</h4>
 <?php 
 $style = null;
 if ($this->request->action !='edit'): 

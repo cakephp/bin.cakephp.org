@@ -90,11 +90,14 @@ form.nice div.form-field .button,
 	-o-text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.30);
 	text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.30);
 	
-	border: 1px solid #a61e2b;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	-o-border-radius: 3px;
 	border-radius: 3px;
+}
+.button.red,
+form.nice div.form-field .button.red {
+	border: 1px solid #a61e2b;
 }
 .nice .button:hover,
 .nice .button:focus,
@@ -120,11 +123,11 @@ form.nice div.form-field .button,
 	background-image: -moz-linear-gradient(top, #b2cccd, #a1bebf);
 	background-image: -o-linear-gradient(top, #b2cccd, #a1bebf);
 	background-image: linear-gradient(top, #b2cccd, #a1bebf);
-	border-color: #698b8c;
+	border: 1px solid #7a8b8c;
 }
 .button.pale:hover {
 	background: #aac5c6;
-	border-color: #507273;
+	border-color: #618384;
 }
 
 /* Red buttons */

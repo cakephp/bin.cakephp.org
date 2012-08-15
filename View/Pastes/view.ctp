@@ -59,6 +59,11 @@
 			</dd>
 			<?php endif; ?>
 		</dl>
+
+		<a href="#modify" class="tiny pale button modify-paste">
+			Modify this Paste
+		</a>
+
 	</div>
 </div>
 

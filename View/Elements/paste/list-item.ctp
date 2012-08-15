@@ -3,8 +3,9 @@
 	<?php
 	echo $this->element('paste/metadata', compact('paste'));
 	echo $this->Html->link(
-		'view paste',
-		array('controller' => 'pastes', 'action' => 'saved', $paste['Paste']['id'])
+		'View Paste',
+		array('controller' => 'pastes', 'action' => 'saved', $paste['Paste']['id']),
+		array('class' => 'button pale tiny')
 	);
 	?>
 	</div>
