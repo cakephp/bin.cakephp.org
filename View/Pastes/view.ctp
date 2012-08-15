@@ -11,8 +11,6 @@
 			echo $this->element('versions');
 		endif;
 		?>
-
-
 		<dl class="paste-metadata">
 			<?php if ($paste['Paste']['save']): ?>
 			<dd>

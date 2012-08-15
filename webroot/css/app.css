@@ -129,9 +129,16 @@ body {
 }
 
 
+/** Metadata for pastes **/
 .paste-metadata dt {
 	color: #BD8A5D;
 }
 .paste-metadata dd {
 	margin-bottom: 10px;
+}
+/** List metadata is a bit different */
+.paste-item .paste-metadata dt {
+	float: left;
+	clear: left;
+	margin-right: 5px;
 }

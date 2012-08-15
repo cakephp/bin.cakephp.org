@@ -1,32 +1,6 @@
-<div class="pastes">
-
+<div class="paste-list">
 <?php foreach ($pastes as $paste):?>
-	
-	<div class="body">
-		<a href="<?php echo $this->Html->url('/saved/'.$paste['Paste']['id'])?>">
-			<div class="left">
-				<span class="date">
-					<?php echo $this->Time->format('m.d', $paste['Paste']['created']);?>
-				</span>
-				<span class="lang">
-					<?php echo h($paste['Paste']['lang']); ?>
-				</span>
-			</div>
-	
-			<span class="nick">
-				<?php echo h($paste['Paste']['nick']); ?>
-			</span>
-	
-		
-			<span class="note">
-				<?php echo h($this->Text->truncate($paste['Paste']['note'])); ?>
-			</span>
-			
-			<span class="note">
-				<?php echo h($this->Text->truncate($paste['Paste']['body'])); ?>
-			</span>
-		</a>
-	</div>
+	<?php echo $this->element('paste/list-item', compact('paste')); ?>
 <?php endforeach;?>
 </div>
 
