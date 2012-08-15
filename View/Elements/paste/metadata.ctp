@@ -4,9 +4,9 @@
  */
 ?>
 <dl class="paste-metadata">
-	<dt>Pasted on</dt>
+	<dt>By</dt>
 	<dd>
-		<?php echo $this->Time->timeAgoInWords($paste['Paste']['created']); ?>
+	<?php echo $this->Html->link($paste['Paste']['nick'], array('action' => 'nick', $paste['Paste']['nick'])); ?>
 	</dd>
 
 	<dt>Language</dt>
@@ -14,8 +14,8 @@
 		<?php echo h($paste['Paste']['lang']); ?>
 	</dd>
 
-	<dt>By</dt>
+	<dt>Pasted on</dt>
 	<dd>
-	<?php echo $this->Html->link($paste['Paste']['nick'], array('action' => 'nick', $paste['Paste']['nick'])); ?>
+		<?php echo $this->Time->timeAgoInWords($paste['Paste']['created']); ?>
 	</dd>
 </dl>
