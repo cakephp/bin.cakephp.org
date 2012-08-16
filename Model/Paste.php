@@ -75,21 +75,24 @@ class Paste extends AppModel
 			unset($this->data['Paste']['tags']);
 		}
 
-		// Don't make pastes trees.
-		if (
-			!empty($this->data['Paste']['save']) &&
-			!empty($this->data['Paste']['id']) &&
-			empty($this->data['Paste']['paste_id'])
-		) {
-			$this->data['Paste']['paste_id'] = $this->data['Paste']['id'];
-		}
-
-		// Clear the id when editing a saved paste,
-		// this creates a new version.
+		$parentId = null;
 		if (
 			!empty($this->data['Paste']['save']) &&
 			!empty($this->data['Paste']['id'])
 		) {
+			$parentId = $this->data['Paste']['id'];
+		}
+
+		// Don't make pastes trees.
+		if (
+			$parentId &&
+			empty($this->data['Paste']['paste_id'])
+		) {
+			$this->data['Paste']['paste_id'] = $parentId;
+		}
+
+		// If this paste has a parent always create a new one.
+		if (!empty($this->data['Paste']['paste_id'])) {
 			$this->id = false;
 			unset($this->data['Paste']['id']);
 		}
@@ -104,6 +107,7 @@ class Paste extends AppModel
  * @return bool
  */
 	public function validParent($check) {
+		$check = $check['paste_id'];
 		if (empty($check)) {
 			return true;
 		}

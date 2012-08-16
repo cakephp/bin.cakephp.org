@@ -165,24 +165,24 @@ class PasteTest extends CakeTestCase {
 
 	public function testValidParent() {
 		$this->assertTrue(
-			$this->Paste->validParent(null),
+			$this->Paste->validParent(array('paste_id' => null)),
 			'null is no parent, should be fine'
 		);
 		$this->assertTrue(
-			$this->Paste->validParent(0),
+			$this->Paste->validParent(array('paste_id' => 0)),
 			'0 is no parent, should be fine'
 		);
 
 		$this->assertFalse(
-			$this->Paste->validParent(9999999),
+			$this->Paste->validParent(array('paste_id' => 9999999)),
 			'parent does not exist, fail'
 		);
 		$this->assertFalse(
-			$this->Paste->validParent(2),
+			$this->Paste->validParent(array('paste_id' => 2)),
 			'id = 2 is a child, it cannot be a parent.'
 		);
 		$this->assertTrue(
-			$this->Paste->validParent(3),
+			$this->Paste->validParent(array('paste_id' => 3)),
 			'id = 3 is not a child, it can be a parent.'
 		);
 	}
