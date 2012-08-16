@@ -161,10 +161,11 @@ class PastesController extends AppController {
 			if (!empty($result)) {
 				if ($result['Paste']['save'] == 0) {
 					$this->Session->setFlash('The Paste is just temporary.');
+					return $this->redirect(array('action' => 'view', $result['Paste']['temp']));
 				} else {
 					$this->Session->setFlash('The Paste is saved');
+					return $this->redirect(array('action' => 'saved', $result['Paste']['id']));
 				}
-				return $this->redirect(array('action' => 'view', $result['Paste']['temp']));
 			} else {
 				$this->Session->setFlash('Please correct errors below.');
 				$this->set('languages', $this->Paste->languages());
