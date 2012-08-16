@@ -1,4 +1,4 @@
-<div class="paste" id="saved">
+<div class="paste paste-view">
 
 <div class="row">
 	<div class="columns nine">
@@ -63,8 +63,8 @@
 		<a href="#modify" class="tiny pale button modify-paste">
 			Modify this Paste
 		</a>
-
 	</div>
+</div>
 </div>
 
 <?php echo $this->element('modify'); ?>
