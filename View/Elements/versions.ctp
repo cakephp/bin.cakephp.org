@@ -34,23 +34,27 @@ endif;
 	<dd id="versions">
 		<ul>
 		<?php foreach ($versions as $paste): ?>
-			<?php if ($paste['id'] !== $this->passedArgs[0]): ?>
 			<li>
+				<?php $isCurrent = ($paste['id'] === $this->request->pass[0]); ?>
+
+				<?php if (!$isCurrent): ?>
 				<a href="<?php echo $this->Html->url(array('controller' => 'pastes', 'action' => 'saved', $paste['id'])); ?>">
-					<span class="date">
-						<?php echo $this->Time->timeAgoInWords($paste['created']); ?>
-					</span>
-			
+				<?php endif; ?>
 					<span class="nick">
 						<?php echo h($paste['nick']); ?>
+					</span>
+			
+					<span class="date">
+						<?php echo $this->Time->timeAgoInWords($paste['created']); ?>
 					</span>
 			
 					<span class="note">
 						<?php echo h($this->Text->truncate($paste['note'])); ?>
 					</span>
+				<?php if (!$isCurrent): ?>
 				</a>
+				<?php endif; ?>
 			</li>
-			<?php endif; ?>
 		<?php endforeach; ?>
 		</ul>
 	</dd>

@@ -8,6 +8,7 @@ echo $this->Form->create('Paste', array(
 	'class' => 'nice',
 ));
 echo $this->Form->hidden('Paste.id');
+echo $this->Form->hidden('Paste.paste_id');
 echo $this->Form->hidden('Paste.temp');
 ?>
 	<div class="row">

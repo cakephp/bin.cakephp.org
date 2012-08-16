@@ -75,9 +75,21 @@ class Paste extends AppModel
 			unset($this->data['Paste']['tags']);
 		}
 
-		// Handles versioning
-		if (!empty($this->data['Paste']['save']) && !empty($this->data['Paste']['id'])) {
+		// Don't make pastes trees.
+		if (
+			!empty($this->data['Paste']['save']) &&
+			!empty($this->data['Paste']['id']) &&
+			empty($this->data['Paste']['paste_id'])
+		) {
 			$this->data['Paste']['paste_id'] = $this->data['Paste']['id'];
+		}
+
+		// Clear the id when editing a saved paste,
+		// this creates a new version.
+		if (
+			!empty($this->data['Paste']['save']) &&
+			!empty($this->data['Paste']['id'])
+		) {
 			$this->id = false;
 			unset($this->data['Paste']['id']);
 		}

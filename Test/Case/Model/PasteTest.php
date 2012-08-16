@@ -192,7 +192,17 @@ class PasteTest extends CakeTestCase {
 	 * This creates a tree which makes sadfaces.
 	 */
 	public function testNoSaveTreeOfVersions() {
+		$data = $this->Paste->read(null, 2);
+		$data['Paste']['save'] = true;
+		$data['Paste']['body'] = 'new body';
+		$data['Paste']['nick'] = 'new user';
 
+		$this->Paste->create();
+		$result = $this->Paste->save($data);
+		$this->assertNotEquals($result['Paste']['id'], 2, 'id should change');
+		$this->assertEquals('new body', $result['Paste']['body']);
+		$this->assertEquals('new user', $result['Paste']['nick']);
+		$this->assertEquals(1, $result['Paste']['paste_id'], 'Should be a version of 1');
 	}
 
 }
