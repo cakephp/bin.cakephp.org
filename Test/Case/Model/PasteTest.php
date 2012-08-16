@@ -163,4 +163,36 @@ class PasteTest extends CakeTestCase {
 		$this->assertEquals($originalId, $result['Paste']['paste_id']);
 	}
 
+	public function testValidParent() {
+		$this->assertTrue(
+			$this->Paste->validParent(null),
+			'null is no parent, should be fine'
+		);
+		$this->assertTrue(
+			$this->Paste->validParent(0),
+			'0 is no parent, should be fine'
+		);
+
+		$this->assertFalse(
+			$this->Paste->validParent(9999999),
+			'parent does not exist, fail'
+		);
+		$this->assertFalse(
+			$this->Paste->validParent(2),
+			'id = 2 is a child, it cannot be a parent.'
+		);
+		$this->assertTrue(
+			$this->Paste->validParent(3),
+			'id = 3 is not a child, it can be a parent.'
+		);
+	}
+
+	/**
+	 * You shouldn't be able to save a version of a version.
+	 * This creates a tree which makes sadfaces.
+	 */
+	public function testNoSaveTreeOfVersions() {
+
+	}
+
 }

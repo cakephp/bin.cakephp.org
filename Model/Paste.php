@@ -33,6 +33,12 @@ class Paste extends AppModel
 				'required' => true,
 			)
 		),
+		'paste_id' => array(
+			'valid' => array(
+				'rule' => 'validParent',
+				'message' => 'You cannot make a version of a version.'
+			)
+		)
 	);
 
 	public $belongsTo = array(
@@ -76,6 +82,28 @@ class Paste extends AppModel
 			unset($this->data['Paste']['id']);
 		}
 		return true;
+	}
+
+/**
+ * Validation method used to ensure the selected parent paste
+ * doesn't also have a parent paste.
+ *
+ * @param int $check The parent paste.id to check
+ * @return bool
+ */
+	public function validParent($check) {
+		if (empty($check)) {
+			return true;
+		}
+		$parent = $this->find('first', array(
+			'conditions' => array('Paste.id' => $check),
+			'recursive' => -1,
+			'fields' => array('id', 'paste_id')
+		));
+		if (!$parent) {
+			return false;
+		}
+		return $parent['Paste']['paste_id'] === null;
 	}
 
 /**
