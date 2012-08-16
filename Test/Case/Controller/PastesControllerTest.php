@@ -56,6 +56,36 @@ class PastesControllerTestCase extends ControllerTestCase {
 		$this->assertEquals($data['Paste']['body'], $result['Paste']['body']);
 	}
 
+	public function testSaveSaved() {
+		$data = array(
+			'Paste' => array(
+				'id' => 1,
+				'temp' => 123456789,
+				'nick' => 'mark',
+				'lang' => 'php',
+				'body' => 'Updated a bin',
+				'save' => true
+			)
+		);
+		$controller = $this->generate('Pastes', array(
+			'components' => array('Security', 'Session')
+		));
+		$controller->Session->expects($this->once())
+			->method('setFlash')
+			->with('The Paste is saved');
+
+		$this->testAction('/save/1', array(
+			'method' => 'post',
+			'return' => 'vars',
+			'data' => $data
+		));
+		$this->assertContains(
+			'/saved/',
+			$this->headers['Location'],
+			'missing redirect'
+		);
+	}
+
 	public function testIndex() {
 		$result = $this->testAction('/list', array(
 			'method' => 'get',
