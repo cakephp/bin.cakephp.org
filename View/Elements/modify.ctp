@@ -1,6 +1,6 @@
-<?php 
+<?php
 $style = null;
-if ($this->request->action !='edit'): 
+if ($this->request->action != 'edit'):
 	$style = 'style="display: none;"';
 endif;
 ?>
