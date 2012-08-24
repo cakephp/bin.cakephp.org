@@ -9,6 +9,7 @@
 	Router::connect('/save/*', array('controller' => 'pastes', 'action' => 'save'));
 	Router::connect('/edit/*', array('controller' => 'pastes', 'action' => 'edit'));
 	Router::connect('/view/*', array('controller' => 'pastes', 'action' => 'view'));
+	Router::connect('/raw/*', array('controller' => 'pastes', 'action' => 'raw'));
 	Router::connect('/saved/*', array('controller' => 'pastes', 'action' => 'saved'));
 	Router::connect('/list/*', array('controller' => 'pastes', 'action' => 'index'));
 	Router::connect('/nick/:nick', array('controller' => 'pastes', 'action' => 'nick'));

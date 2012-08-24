@@ -91,7 +91,34 @@ class PastesController extends AppController {
 		}
 	}
 
+	/**
+	 * View the paste in HTML with buttons!
+	 *
+	 * @param string $temp The temp id of the paste
+	 */
 	public function view($temp = null) {
+		$this->_getPaste($temp);
+		$this->set(array(
+			'paste' => $this->request->data,
+			'languages' => $this->Paste->languages()
+		));
+		unset($this->request->data['Paste']['nick']);
+	}
+
+	/**
+	 * View the raw text for a paste.
+	 *
+	 * @param string $temp The temp id of the paste
+	 */
+	public function raw($temp = null) {
+		$this->_getPaste($temp);
+
+		$this->layout = false;
+		$this->set('paste', $this->request->data);
+		$this->response->type('text');
+	}
+
+	protected function _getPaste($temp) {
 		if (!$temp) {
 			throw new NotFoundException();
 		}
@@ -101,9 +128,6 @@ class PastesController extends AppController {
 		if (empty($this->request->data)) {
 			throw new NotFoundException();
 		}
-		$this->set('paste', $this->request->data);
-		$this->set('languages', $this->Paste->languages());
-		unset($this->request->data['Paste']['nick']);
 	}
 
 	public function tag($id = null) {
