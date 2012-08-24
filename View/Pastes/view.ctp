@@ -16,7 +16,16 @@
 					<span class="saved round label green">saved</span>
 				</dd>
 				<?php endif;?>
-				
+
+				<dd>
+					<?php echo $this->Html->link(
+						'View original',
+						array('action' => 'raw', $paste['Paste']['temp']), 
+						array('class' => 'button tiny pale')
+					);
+					?>
+				</dd>
+
 				<dt>Language</dt>
 				<dd class="lang">
 					<?php echo h($paste['Paste']['lang']); ?>
@@ -61,7 +70,7 @@
 
 		
 			<div class="row form-field">
-				<a href="#modify" class="tiny pale button modify-paste">
+				<a href="#modify" class="tiny red button modify-paste">
 					Modify this Paste
 				</a>
 			</div>
