@@ -129,6 +129,19 @@ form.nice div.form-field .button.red {
 	background: #aac5c6;
 	border-color: #618384;
 }
+/* Medium blue buttons */
+.button.blue {
+	background: #b2cccd;
+	background-image: -webkit-linear-gradient(top, #417281, #2e5866);
+	background-image: -moz-linear-gradient(top, #417281, #2e5866);
+	background-image: -o-linear-gradient(top, #417281, #2e5866);
+	background-image: linear-gradient(top, #417281, #2e5866);
+	border: 1px solid #2e5866;
+}
+.button.blue:hover {
+	background: #417281;
+	border-color: #2e5866;
+}
 
 /* Red buttons */
 .button.red,

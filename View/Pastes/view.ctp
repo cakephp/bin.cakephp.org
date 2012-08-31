@@ -55,7 +55,7 @@
 				<?php echo $this->Html->link(
 					'View raw version',
 					array('action' => 'raw', $paste['Paste']['temp']), 
-					array('class' => 'button tiny pale')
+					array('class' => 'button tiny blue')
 				);
 				?>
 			</div>
