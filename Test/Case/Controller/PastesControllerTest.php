@@ -24,7 +24,7 @@ class PastesControllerTestCase extends ControllerTestCase {
 	public function testEditPrepare() {
 		$result = $this->testAction('/edit/1', array('method' => 'get', 'return' => 'vars'));
 
-		$this->assertArrayKeyExists('php', $result['languages']);
+		$this->assertArrayHasKey('php', $result['languages']);
 		$this->assertNull($result['nick']);
 	}
 
@@ -91,7 +91,7 @@ class PastesControllerTestCase extends ControllerTestCase {
 			'method' => 'get',
 			'return' => 'vars',
 		));
-		$this->assertArrayKeyExists('pastes', $result);
+		$this->assertArrayHasKey('pastes', $result);
 	}
 
 	public function testSearch() {
