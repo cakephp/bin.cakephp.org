@@ -5,5 +5,5 @@ if ($this->request->action != 'edit'):
 endif;
 ?>
 <div id="modify" <?php echo $style?>>
-	<?php echo $this->element('paste/form'); ?>
+	<?php echo $this->element('paste/form', array('noTags' => true)); ?>
 </div>

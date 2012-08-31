@@ -40,13 +40,37 @@ echo $this->Form->hidden('Paste.temp');
 			'class' => 'expand',
 			'rows' => 4,
 		));
-		echo $this->Form->input('Paste.save', array(
-			'div' => array('class' => 'row form-field'),
-			'type' => 'checkbox',
-			'label' => array('text' => 'Save', 'class' => 'inline'),
-			'after' => ' <span class="example">Saved pastes turn on versioning.</span>',
-			'onclick' => 'Element.toggle("tags");'
-		));
+
+		// Don't allow saved to be toggled on versions/edit.
+		if (empty($this->data['Paste']['save'])):
+			echo $this->Form->input('Paste.save', array(
+				'div' => array('class' => 'row form-field'),
+				'id' => 'save-paste',
+				'type' => 'checkbox',
+				'label' => array('text' => 'Save', 'class' => 'inline'),
+				'after' => ' <span class="example">Saved pastes turn on versioning.</span>',
+			));
+		else:
+			echo $this->Form->hidden('Paste.save');
+		endif;
+	
+		// Don't display on modify forms.
+		if (empty($noTags)):
+			echo $this->Form->input('Paste.tags', array(
+				'div' => array(
+					'id' => 'tags',
+					'class' => 'hide row form-field'
+				),
+				'label' => array(
+					'text' => 'Tags',
+					'class' => 'inline',
+				),
+				'after' => '<span class="example">comma separated</span>',
+				'type' => 'text',
+				'size' => 36
+			));
+		endif;
+
 		echo $this->Form->submit('Submit', array(
 			'div' => array('class' => 'row'),
 			'class' => 'button red',
@@ -55,17 +79,4 @@ echo $this->Form->hidden('Paste.temp');
 		</div>
 	</div>
 
-	<div class="right">
-		<div id="tags" style="display:none" class="optional">
-			<?php
-			echo $this->Form->tags('Paste.tags', array(
-				'label' => array(
-					'text' => 'Tags <em>comma separated</em>',
-					'escape' => false
-				),
-				'size' => 36
-			));
-			?>
-		</div>
-	</div>
 <?php echo $this->Form->end();?>

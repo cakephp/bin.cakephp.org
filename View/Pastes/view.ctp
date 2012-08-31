@@ -19,7 +19,7 @@
 
 				<dd>
 					<?php echo $this->Html->link(
-						'View original',
+						'View raw version',
 						array('action' => 'raw', $paste['Paste']['temp']), 
 						array('class' => 'button tiny pale')
 					);
@@ -56,14 +56,6 @@
 				<dt>Tags</dt>
 				<dd>
 					<?php echo $this->Cakebin->aList($paste['Tag']); ?>
-					<div class="tags">
-						<?php echo $this->Html->link(
-							'add more',
-							array('controller' => 'pastes', 'action' => 'tag', $paste['Paste']['id']),
-							array('update'=>'tags')
-						);
-						?>
-					</div>
 				</dd>
 				<?php endif; ?>
 			</dl>
