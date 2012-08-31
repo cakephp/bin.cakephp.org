@@ -17,15 +17,6 @@
 				</dd>
 				<?php endif;?>
 
-				<dd>
-					<?php echo $this->Html->link(
-						'View raw version',
-						array('action' => 'raw', $paste['Paste']['temp']), 
-						array('class' => 'button tiny pale')
-					);
-					?>
-				</dd>
-
 				<dt>Language</dt>
 				<dd class="lang">
 					<?php echo h($paste['Paste']['lang']); ?>
@@ -52,7 +43,7 @@
 				?>
 				</dd>
 
-				<?php if($paste['Paste']['save']): ?>
+				<?php if($paste['Paste']['save'] && count($paste['Tag'])): ?>
 				<dt>Tags</dt>
 				<dd>
 					<?php echo $this->Cakebin->aList($paste['Tag']); ?>
@@ -60,7 +51,15 @@
 				<?php endif; ?>
 			</dl>
 
-		
+			<div class="row form-field">
+				<?php echo $this->Html->link(
+					'View raw version',
+					array('action' => 'raw', $paste['Paste']['temp']), 
+					array('class' => 'button tiny pale')
+				);
+				?>
+			</div>
+
 			<div class="row form-field">
 				<a href="#modify" class="tiny red button modify-paste">
 					Modify this Paste
