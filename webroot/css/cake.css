@@ -221,7 +221,7 @@ ul ul {
 	-webkit-transform: rotate(-2.8deg);
 	-moz-transform: rotate(-2.8deg);
 	transform: rotate(-2.8deg);
-	
+
 	-webkit-transform-origin: top center;
 	-moz-transform-origin: top center;
 	transform-origin: top center;
@@ -229,6 +229,45 @@ ul ul {
 .masthead .row {
 	z-index: 1;
 	position: relative;
+}
+
+/* Pagination */
+.paging {
+	background: transparent;
+	color: #C4C4C4;
+	padding: 0px;
+	margin: 10px 0px;
+	font-size: 14px;
+}
+.paging .disabled {
+	display:none;
+}
+.paging span {
+	display: inline-block;
+	margin-right:3px;
+	color:#474747;
+	padding:0;
+}
+.paging span a {
+	text-decoration: none;
+	display: inline-block;
+	padding: 3px 6px;
+	color: #5E5E5E;
+}
+.paging span a:hover {
+	padding: 3px 6px;
+}
+.paging span.current {
+	color: #777;
+	padding: 3px 6px;
+	background-color: #F1F1F1;
+	border: 1px solid #C4C4C4;
+}
+.paging .numbers {
+	display: inline-block;
+	background-color: #F1F1F1;
+	padding: 0px;
+	border: 1px solid #C4C4C4;
 }
 
 /* footer */

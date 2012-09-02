@@ -5,10 +5,14 @@
 </div>
 
 <div class="paging">
-	<?php $this->Paginator->options(array('url'=> array('nick'=> $nick)));?>
-	<?php echo $this->Paginator->prev('<< '.__('previous'), array(), null, array('class'=>'disabled'));?>
- |  <?php echo $this->Paginator->numbers();?>
-	<?php echo $this->Paginator->next(__('next').' >>', array(), null, array('class'=>'disabled'));?>
+<?php
+$this->Paginator->options(array('url '=> array('nick' => $nick)));
+echo $this->Paginator->prev('<< '.__('previous'), array(), null, array('class'=>'disabled'));
+echo $this->Paginator->numbers(array(
+	'separator' => '',
+));
+echo $this->Paginator->next(__('next').' >>', array(), null, array('class'=>'disabled'));
+?>
 </div>
 
 <?php echo $this->element('tag_cloud'); ?>

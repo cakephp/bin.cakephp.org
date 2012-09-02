@@ -1,4 +1,4 @@
-<div class="paste paste-item row">
+<div class="paste gutter-bottom row">
 	<div class="columns four">
 	<?php
 	echo $this->element('paste/metadata', compact('paste'));
