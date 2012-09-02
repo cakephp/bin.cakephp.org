@@ -193,10 +193,10 @@ class Paste extends AppModel
  *
  * @return boolean
  */
-	public function purgeTemporary() {
+	public function purgeTemporary($age = '-1 day') {
 		$conditions = array(
 			'Paste.save' => 0,
-			'Paste.created <=' => date('Y-m-d', strtotime('-1 day'))
+			'Paste.created <=' => date('Y-m-d', strtotime($age))
 		);
 		return $this->deleteAll($conditions);
 	}
