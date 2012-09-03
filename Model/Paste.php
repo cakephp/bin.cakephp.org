@@ -95,6 +95,7 @@ class Paste extends AppModel
 		if (!empty($this->data['Paste']['paste_id'])) {
 			$this->id = false;
 			unset($this->data['Paste']['id']);
+			$this->data['Paste']['created'] = date('Y-m-d H:i:s');
 		}
 		return true;
 	}

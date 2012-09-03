@@ -161,6 +161,7 @@ class PasteTest extends CakeTestCase {
 
 		$result = $this->Paste->read();
 		$this->assertEquals($originalId, $result['Paste']['paste_id']);
+		$this->assertEquals(date('Y-m-d H:i:s'), $result['Paste']['created']);
 	}
 
 	public function testValidParent() {
