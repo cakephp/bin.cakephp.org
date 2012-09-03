@@ -82,6 +82,14 @@ class PasteTest extends CakeTestCase {
 		$this->assertEquals(1, $results[0]['Paste']['paste_id']);
 	}
 
+	public function testFindTagged() {
+		$results = $this->Paste->find('tagged', array(
+			'tagId' => 2
+		));
+		$this->assertCount(2, $results);
+		$this->assertEquals(array(1, 2), Hash::extract($results, '{n}.Paste.id'));
+	}
+
 	public function testPurgeTemporary() {
 		$result = $this->Paste->purgeTemporary();
 		$this->assertTrue($result);

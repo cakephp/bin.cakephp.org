@@ -1,24 +1,10 @@
 <?php
 
 class Tag extends AppModel {
-/**
- * Enter description here...
- *
- * @var string
- */
-    var $name = 'Tag';
-/**
- * Enter description here...
- *
- * @var unknown_type
- */
-	var $validate = array('name' => 'notEmpty');
-/**
- * Enter description here...
- *
- * @var array
- */
-	var $hasAndBelongsToMany = array(
+
+	public $validate = array('name' => 'notEmpty');
+
+	public $hasAndBelongsToMany = array(
 		'Paste' => array('className' => 'Paste')
 	);
 
@@ -53,7 +39,8 @@ class Tag extends AppModel {
 	
 	function popular() {
 		return $this->query("SELECT `Tag`.`id`, `Tag`.`name`, `Tag`.`keyname`, COUNT(pastes_tags.paste_id) as count 
-	 					FROM `pastes_tags` JOIN `tags` as `Tag` ON `pastes_tags`.`tag_id` = `Tag`.`id` 
+						FROM `pastes_tags` JOIN `tags` as `Tag` ON `pastes_tags`.`tag_id` = `Tag`.`id` 
 						JOIN `pastes` as `Paste` ON `pastes_tags`.`paste_id` = `Paste`.`id` WHERE `Paste`.`save` = '1' GROUP BY (tag_id) ORDER BY Tag.name ASC");
 	}
+
 }

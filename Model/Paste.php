@@ -9,6 +9,7 @@ class Paste extends AppModel
 		'saved' => true,
 		'recent' => true,
 		'recentVersions' => true,
+		'tagged' => true,
 	);
 
 	public $validate = array(
@@ -144,8 +145,28 @@ class Paste extends AppModel
 	}
 
 /**
+ * Custom finder for finding pastes with the given tagId(s)
+ */
+	public function _findTagged($state, $query, $results = array()) {
+		if ($state === 'before') {
+			$this->unbindModel(array('hasAndBelongsToMany' => array('Tag')));
+			$db = $this->getDataSource();
+			$query['joins'][] = array(
+				'alias' => 'PastesTag',
+				'table' => 'pastes_tags',
+				'type' => 'INNER',
+				'conditions' => array(
+					'Paste.id' => $db->identifier('PastesTag.paste_id')
+				)
+			);
+			$query['conditions']['PastesTag.tag_id'] = $query['tagId'];
+			return $query;
+		}
+		return $results;
+	}
+
+/**
  * Find recent pastes.
- *
  */
 	protected function _findRecent($state, $query, $results = array()) {
 		if ($state === 'before') {
