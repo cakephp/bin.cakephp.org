@@ -1,8 +1,8 @@
 <?php
 App::uses('Folder', 'Utility');
 
-class Paste extends AppModel
-{
+class Paste extends AppModel {
+
 	protected $_languages;
 
 	public $findMethods = array(

@@ -1,8 +1,7 @@
 <?php
 App::uses('AppController', 'Controller');
 
-class TagsController extends AppController
-{
+class TagsController extends AppController {
 	function popular() {
 		if ($this->request->params['bare'] != '1') {
 			$this->redirect('/');
