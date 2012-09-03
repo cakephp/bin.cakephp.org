@@ -10,7 +10,7 @@ class Tag extends AppModel {
 
 	function saveTags($string = null) {
 		$return = array();
-		
+
 		if ($string) {
 			$array = explode(',', $string);
 			foreach ($array as $tag) {

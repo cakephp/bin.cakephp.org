@@ -39,12 +39,19 @@ class TagTest extends CakeTestCase {
 		parent::tearDown();
 	}
 
-/**
- * testSaveTags method
- *
- * @return void
- */
 	public function testSaveTags() {
+		$data = 'new, newer, newest';
+		$this->Tag->create();
+		$result = $this->Tag->saveTags($data);
+		$expected = array(4, 5, 6);
+		$this->assertEquals($expected, $result);
+	
+		$tags = $this->Tag->find('count', array(
+			'conditions' => array(
+				'Tag.keyname' => array('new', 'newer', 'newest')
+			)
+		));
+		$this->assertEquals(3, $tags, 'Tags were not created.');
 	}
 
 /**

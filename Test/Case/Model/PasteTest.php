@@ -120,7 +120,7 @@ class PasteTest extends CakeTestCase {
 		$this->assertTrue(is_numeric($result['Paste']['temp']), 'temp should be a number');
 	}
 
-	public function testSaveTags() {
+	public function testSaveTagsIsCalled() {
 		$data = array(
 			'nick' => 'mark',
 			'body' => 'new paste',
@@ -128,16 +128,15 @@ class PasteTest extends CakeTestCase {
 			'save' => 1,
 			'tags' => 'new, newer, newest'
 		);
+		$this->Paste->Tag = $this->getMock('Tag', array(), array(), '', false);
+		$this->Paste->Tag->expects($this->once())
+			->method('saveTags')
+			->with($data['tags'])
+			->will($this->returnValue(4, 5, 6));
+
 		$this->Paste->create($data);
 		$result = $this->Paste->save();
 		$this->assertTrue((bool)$result);
-	
-		$tags = $this->Paste->Tag->find('count', array(
-			'conditions' => array(
-				'Tag.keyname' => array('new', 'newer', 'newest')
-			)
-		));
-		$this->assertEquals(3, $tags, 'Tags were not created.');
 	}
 
 	public function testSaveVersion() {
