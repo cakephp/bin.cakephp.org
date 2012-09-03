@@ -38,9 +38,40 @@ class Tag extends AppModel {
 	}
 	
 	function popular() {
-		return $this->query("SELECT `Tag`.`id`, `Tag`.`name`, `Tag`.`keyname`, COUNT(pastes_tags.paste_id) as count 
-						FROM `pastes_tags` JOIN `tags` as `Tag` ON `pastes_tags`.`tag_id` = `Tag`.`id` 
-						JOIN `pastes` as `Paste` ON `pastes_tags`.`paste_id` = `Paste`.`id` WHERE `Paste`.`save` = '1' GROUP BY (tag_id) ORDER BY Tag.name ASC");
+		$this->unbindModel(array(
+			'hasAndBelongsToMany' => array('Paste')
+		));
+		$db = $this->getDataSource();
+		$query = array(
+			'fields' => array(
+				'Tag.id', 'Tag.name', 'Tag.keyname',
+				'COUNT(PastesTag.paste_id) AS count'
+			),
+			'conditions' => array(
+				'Paste.save' => 1
+			),
+			'joins' => array(
+				array(
+					'table' => 'pastes_tags',
+					'alias' => 'PastesTag',
+					'type' => 'INNER',
+					'conditions' => 'PastesTag.tag_id = Tag.id'
+				),
+				array(
+					'table' => 'pastes',
+					'alias' => 'Paste',
+					'type' => 'INNER',
+					'conditions' => 'PastesTag.paste_id = Paste.id'
+				),
+			),
+			'group' => array(
+				'Tag.id', 'Tag.name', 'Tag.keyname'
+			),
+			'order' => array(
+				'Tag.name' => 'ASC'
+			)
+		);
+		return $this->find('all', $query);
 	}
 
 }

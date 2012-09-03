@@ -53,6 +53,30 @@ class TagTest extends CakeTestCase {
  * @return void
  */
 	public function testPopular() {
+		$result = $this->Tag->popular();
+		$expected = array(
+			array(
+				'Tag' => array(
+					'id' => 2,
+					'name' => 'bug',
+					'keyname' => 'bug'
+				),
+				array(
+					'count' => 2
+				)
+			),
+			array(
+				'Tag' => array(
+					'id' => 1,
+					'name' => 'code',
+					'keyname' => 'code'
+				),
+				array(
+					'count' => 1
+				)
+			)
+		);
+		$this->assertEquals($expected, $result);
 	}
 
 }
