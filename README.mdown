@@ -1,0 +1,16 @@
+Cakebin
+=======
+
+A simple pastebin built with CakePHP.  This application also powers
+http://bin.cakephp.org
+
+Installation
+------------
+
+* Clone the repo.
+* Link to CakePHP using either the `include_path` or setting the `CAKE_CORE_INCLUDE_PATH` constant.
+* Create `Config/database.php`.
+* Install the schema with `Console/cake schema create -name BinCakephpOrg`
+* Install submodules with `git submodule update --init`
+* Profit
+
