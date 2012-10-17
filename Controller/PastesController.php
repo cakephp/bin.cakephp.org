@@ -138,31 +138,33 @@ class PastesController extends AppController {
 	}
 
 	public function tag($id = null) {
-		$this->set('id', $id);
-		$this->set('tags_added', false);
+		$tags_added = false;
 		$this->Paste->unbindModel(array('hasMany'=>array('Version')));
 		$paste = $this->Paste->read('Paste.id', $id);
-		if (!empty($this->request->data)) {
-			$allow = array(',', "'", '"', '_', '-', '|', '^', ':', '.', ' ');
-			$tags = $this->Paste->Tag->saveTags(Sanitize::paranoid($this->request->data['Paste']['tags'],$allow));
-			if (!empty($paste['Tag'])) {
-				foreach($paste['Tag'] as $var) {
-					$tags[] = $var['id'];
-				}
-			}
+		if (empty($this->request->data)) {
+			$this->set(compact('id', 'paste', 'tags_added'));
+			return;
+		}
 
-			$this->request->data['Paste']['id'] = $id;
-			$this->request->data['Tag']['Tag'] = array_unique($tags);
-			Sanitize::clean($this->request->data);
-			if ($this->Paste->save($this->request->data)) {
-				$this->set('tags_added', true);
-				$this->Paste->cacheQueries = false;
-				$this->Paste->unbindModel(array('hasMany'=>array('Version')));
-				$paste = $this->Paste->read('Paste.id', $id);
+		$allow = array(',', "'", '"', '_', '-', '|', '^', ':', '.', ' ');
+		$tags = $this->Paste->Tag->saveTags(Sanitize::paranoid($this->request->data['Paste']['tags'],$allow));
+		if (!empty($paste['Tag'])) {
+			foreach ($paste['Tag'] as $var) {
+				$tags[] = $var['id'];
 			}
 		}
 
-		$this->set(compact('paste'));
+		$this->request->data['Paste']['id'] = $id;
+		$this->request->data['Tag']['Tag'] = array_unique($tags);
+		Sanitize::clean($this->request->data);
+		if ($this->Paste->save($this->request->data)) {
+			$tags_added = true;
+			$this->Paste->cacheQueries = false;
+			$this->Paste->unbindModel(array('hasMany'=>array('Version')));
+			$paste = $this->Paste->read('Paste.id', $id);
+		}
+
+		$this->set(compact('id', 'paste', 'tags_added'));
 	}
 
 	/**
