@@ -104,11 +104,9 @@ body {
 #content {
 	padding-top: 20px;
 }
-.footer {
-	clear: both;
-}
 .footer,
 .footer-push {
+	clear: both;
 	height: 94px;
 }
 
