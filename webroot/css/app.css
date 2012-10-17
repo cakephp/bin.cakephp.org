@@ -3,6 +3,10 @@ body {
 	height: 100%;
 }
 
+#cakephp-global-navigation li.main {
+	background: transparent url('../csfnavbar/css/main-link.png') 0px 4px no-repeat;
+}
+
 /* Header elements */
 .header-backing {
 	height: 250%;
