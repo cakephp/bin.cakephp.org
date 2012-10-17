@@ -77,22 +77,28 @@ class PastesController extends AppController {
 	/**
 	 * View a saved paste and its revisions.
 	 */
-	public function saved($id = null) {
+	public function saved($id = null, $type = 'html') {
 		if (!$id) {
 			return $this->setAction('index');
 		}
 
 		$this->Paste->recursive = 2;
 		$this->request->data = $this->Paste->read(null, $id);
-		if (!empty($this->request->data)) {
-			$this->set('paste', $this->request->data);
-			$this->set('original', $this->request->data['Original']);
-			$this->set('languages', $this->Paste->languages());
-			unset($this->request->data['Paste']['nick']);
-			return $this->render('view');
+		$this->set('paste', $this->request->data);
+		if (empty($this->request->data)) {
+			return $this->redirect(array('action' => 'index'));
 		}
 
-		return $this->redirect(array('action' => 'index'));
+		if ($type === 'raw') {
+			$this->layout = false;
+			$this->response->type('text');
+			return $this->render('raw');
+		}
+
+		$this->set('original', $this->request->data['Original']);
+		$this->set('languages', $this->Paste->languages());
+		unset($this->request->data['Paste']['nick']);
+		return $this->render('view');
 	}
 
 	/**
