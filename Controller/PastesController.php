@@ -156,7 +156,6 @@ class PastesController extends AppController {
 		}
 
 		$this->set('paste', $paste);
-		$this->render();
 	}
 
 	/**
