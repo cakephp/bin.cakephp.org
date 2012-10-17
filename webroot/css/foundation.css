@@ -818,7 +818,7 @@
 	   Nicer Forms
 	----------------------------------------- */
 	form.nice div.form-field input, form.nice input.input-text, form.nice textarea { border: solid 1px #bbb; border-radius: 2px; -webkit-border-radius: 2px; -moz-border-radius: 2px; }
-	form.nice div.form-field input, form.nice input.input-text, form.nice textarea { font-size: 13px; padding: 6px 3px 4px; outline: none !important; background: url(../images/misc/input-bg.png) #fff; }
+	form.nice div.form-field input, form.nice input.input-text, form.nice textarea { font-size: 13px; padding: 6px 3px 4px; outline: none !important; }
 	form.nice div.form-field input:focus, form.nice input.input-text:focus, form.nice textarea:focus { background-color: #f9f9f9; }
 
 	/* Text input and textarea, disabled */
@@ -880,7 +880,7 @@
 	----------------------------------------- */
 	form.custom.nice span.custom.checkbox { border-radius: 2px; -webkit-border-radius: 2px; -moz-border-radius: 2px; }
 
-	form.custom.nice div.custom.dropdown a.current { border-radius: 2px; -webkit-border-radius: 2px; -moz-border-radius: 2px; background-image: url(../images/misc/input-bg-outset.png); background-position: bottom right; }
+	form.custom.nice div.custom.dropdown a.current { border-radius: 2px; -webkit-border-radius: 2px; -moz-border-radius: 2px; }
 	form.custom.nice div.custom.dropdown a.selector { height: 27px; border-width: 0 0 0 1px; }
 	form.custom.nice div.custom.dropdown ul { border-bottom-left-radius: 2px; border-bottom-right-radius: 2px; -webkit-border-bottom-left-radius: 2px; -webkit-border-bottom-right-radius: 2px; -moz-border-radius-bottomleft: 2px; -moz-border-radius-bottomright: 2px; }
 /* CSS for jQuery Orbit Plugin 1.4.0
