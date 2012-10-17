@@ -63,7 +63,7 @@
 			<div class="row form-field">
 				<?php echo $this->Html->link(
 					'View this as raw',
-					array('action' => 'saved', $paste['Paste']['temp'], 'html'),
+					array('action' => 'saved', $paste['Paste']['id'], 'html'),
 					array('class' => 'button tiny blue')
 				); ?>
 			</div>
