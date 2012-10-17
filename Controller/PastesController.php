@@ -19,7 +19,7 @@ class PastesController extends AppController {
 	protected function _validatePost() {
 		if ($this->request->action === 'edit') {
 			$this->Security->blackHoleCallback = 'edit';
-		} elseif($this->request->action === 'add') {
+		} elseif ($this->request->action === 'add') {
 			$this->Security->blackHoleCallback = 'add';
 		}
 	}
@@ -45,8 +45,7 @@ class PastesController extends AppController {
 		}
 
 		$this->Paste->recursive = 0;
-		$pastes = $this->paginate('Paste', $conditions);
-		$this->set('pastes', $pastes);
+		$this->set('pastes', $this->paginate('Paste', $conditions));
 	}
 
 	public function nick() {
