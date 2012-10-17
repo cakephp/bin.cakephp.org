@@ -1,105 +1,75 @@
 <?php
-/* SVN FILE: $Id: pages_controller.php 1 2006-10-20 01:24:27Z phpnut $ */
-
 /**
- * Short description for file.
+ * Static content controller.
  *
- * This file is application-wide controller file. You can put all
- * application-wide controller-related methods here.
+ * This file will render views from views/pages/
  *
- * PHP versions 4 and 5
+ * PHP 5
  *
- * CakePHP :  Rapid Development Framework <http://www.cakephp.org/>
- * Copyright (c)	2006, Cake Software Foundation, Inc.
- *								1785 E. Sahara Avenue, Suite 490-204
- *								Las Vegas, Nevada 89104
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright		Copyright (c) 2006, Cake Software Foundation, Inc.
- * @link				http://www.cakefoundation.org/projects/info/cakephp CakePHP Project
- * @package			cake
- * @subpackage		cake.app.controllers
- * @since			CakePHP v 0.2.9
- * @version			$Revision: 1 $
- * @modifiedby		$LastChangedBy: phpnut $
- * @lastmodified	$Date: 2006-10-19 20:24:27 -0500 (Thu, 19 Oct 2006) $
- * @license			http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @copyright     Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
+ * @package       app.Controller
+ * @since         CakePHP(tm) v 0.2.9
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-/**
- * Short description for class.
- *
- * This file is application-wide controller file. You can put all
- * application-wide controller-related methods here.
- *
- * Add your application-wide methods in the class below, your controllers
- * will inherit them.
- *
- * @package		cake
- * @subpackage	cake.app.controllers
- */
-class PagesController extends AppController{
+App::uses('AppController', 'Controller');
 
 /**
- * Enter description here...
+ * Static content controller
  *
- * @var unknown_type
+ * Override this controller by placing a copy in controllers directory of an application
+ *
+ * @package       app.Controller
+ * @link http://book.cakephp.org/2.0/en/controllers/pages-controller.html
  */
-	 var $name = 'Pages';
+class PagesController extends AppController {
 
 /**
- * Enter description here...
+ * Controller name
  *
- * @var unknown_type
+ * @var string
  */
-	 var $helpers = array('Html');
+	public $name = 'Pages';
 
 /**
  * This controller does not use a model
  *
- * @var $uses
+ * @var array
  */
-	 var $uses = null;
+	public $uses = array();
 
 /**
  * Displays a view
  *
+ * @param mixed What page to display
+ * @return void
  */
-	 function display() {
-		  if (!func_num_args()) {
-				$this->redirect('/');
-		  }
+	public function display() {
+		$path = func_get_args();
 
-		  $path=func_get_args();
+		$count = count($path);
+		if (!$count) {
+			$this->redirect('/');
+		}
+		$page = $subpage = $title_for_layout = null;
 
-		  if (!count($path)) {
-				$this->redirect('/');
-		  }
-
-		  $count  =count($path);
-		  $page   =null;
-		  $subpage=null;
-		  $title  =null;
-
-		  if (!empty($path[0])) {
-				$page = $path[0];
-		  }
-
-		  if (!empty($path[1])) {
-				$subpage = $path[1];
-		  }
-
-		  if (!empty($path[$count - 1])) {
-				$title = ucfirst($path[$count - 1]);
-		  }
-
-		  $this->set('page', $page);
-		  $this->set('subpage', $subpage);
-		  $this->set('title', $title);
-		  $this->render(join('/', $path));
-	 }
+		if (!empty($path[0])) {
+			$page = $path[0];
+		}
+		if (!empty($path[1])) {
+			$subpage = $path[1];
+		}
+		if (!empty($path[$count - 1])) {
+			$title_for_layout = Inflector::humanize($path[$count - 1]);
+		}
+		$this->set(compact('page', 'subpage', 'title_for_layout'));
+		$this->render(implode('/', $path));
+	}
 }
-?>
