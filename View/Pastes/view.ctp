@@ -53,12 +53,21 @@
 
 			<div class="row form-field">
 				<?php echo $this->Html->link(
-					'View raw version',
+					'View latest raw version',
 					array('action' => 'raw', $paste['Paste']['temp']), 
 					array('class' => 'button tiny blue')
-				);
-				?>
+				); ?>
 			</div>
+
+			<?php if ($this->request->params['action'] == 'saved') : ?>
+			<div class="row form-field">
+				<?php echo $this->Html->link(
+					'View this as raw',
+					array('action' => 'saved', $paste['Paste']['temp'], 'html'),
+					array('class' => 'button tiny blue')
+				); ?>
+			</div>
+			<?php endif; ?>
 
 			<div class="row form-field">
 				<a href="#modify" class="tiny red button modify-paste">
