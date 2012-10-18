@@ -77,7 +77,7 @@ class PastesController extends AppController {
 	/**
 	 * View a saved paste and its revisions.
 	 */
-	public function saved($id = null, $type = 'html') {
+	public function saved($id = null) {
 		if (!$id) {
 			return $this->setAction('index');
 		}
@@ -87,12 +87,6 @@ class PastesController extends AppController {
 		$this->set('paste', $this->request->data);
 		if (empty($this->request->data)) {
 			return $this->redirect(array('action' => 'index'));
-		}
-
-		if ($type === 'raw') {
-			$this->layout = false;
-			$this->response->type('text');
-			return $this->render('raw');
 		}
 
 		$this->set('original', $this->request->data['Original']);
