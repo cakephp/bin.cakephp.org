@@ -32,7 +32,7 @@
  * In production mode, flash messages redirect after a time interval.
  * In development mode, you need to click the flash message to continue.
  */
-	Configure::write('debug', 2);
+	Configure::write('debug', 0);
 
 /**
  * Configure the Error handler used to handle errors for your application.  By default
@@ -251,7 +251,7 @@ if (Configure::read('debug') >= 1) {
 }
 
 // Prefix each application on the same server with a different string, to avoid Memcache and APC conflicts.
-$prefix = 'myapp_';
+$prefix = 'binapp_';
 
 /**
  * Configure the cache used for general framework caching.  Path information,
