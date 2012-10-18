@@ -116,50 +116,6 @@ class PastesController extends AppController {
 		$this->response->type('text');
 	}
 
-	protected function _getPaste($temp) {
-		if (!$temp) {
-			throw new NotFoundException();
-		}
-
-		$this->Paste->unbindModel(array('hasMany' => array('Version')));
-		$this->request->data = $this->Paste->findByTemp($temp, null, 'Paste.created DESC');
-		$this->set('paste', $this->request->data);
-		unset($this->request->data['Paste']['nick']);
-
-		if (empty($this->request->data)) {
-			throw new NotFoundException();
-		}
-	}
-
-	public function tag($id = null) {
-		$tags_added = false;
-		$this->Paste->unbindModel(array('hasMany'=>array('Version')));
-		$paste = $this->Paste->read('Paste.id', $id);
-		if (empty($this->request->data)) {
-			$this->set(compact('id', 'paste', 'tags_added'));
-			return;
-		}
-
-		$allow = array(',', "'", '"', '_', '-', '|', '^', ':', '.', ' ');
-		$tags = $this->Paste->Tag->saveTags(Sanitize::paranoid($this->request->data['Paste']['tags'],$allow));
-		if (!empty($paste['Tag'])) {
-			foreach ($paste['Tag'] as $var) {
-				$tags[] = $var['id'];
-			}
-		}
-
-		$this->request->data['Paste']['id'] = $id;
-		$this->request->data['Tag']['Tag'] = array_unique($tags);
-		Sanitize::clean($this->request->data);
-		if ($this->Paste->save($this->request->data)) {
-			$tags_added = true;
-			$this->Paste->cacheQueries = false;
-			$this->Paste->unbindModel(array('hasMany'=>array('Version')));
-			$paste = $this->Paste->read('Paste.id', $id);
-		}
-		$this->set(compact('id', 'paste', 'tags_added'));
-	}
-
 	/**
 	 * Get the form to add a new paste.
 	 */
@@ -215,6 +171,21 @@ class PastesController extends AppController {
 			$this->set('languages', $this->Paste->languages());
 			$this->request->data = $this->Paste->read(null, $id);
 		}
+	}
+
+	protected function _getPaste($temp) {
+		if (!$temp) {
+			throw new NotFoundException();
+		}
+
+		$paste = $this->Paste->findByTemp($temp);
+		if (empty($paste)) {
+			throw new NotFoundException();
+		}
+
+		$this->request->data = $paste;
+		$this->set('paste', $paste);
+		unset($this->request->data['Paste']['nick']);
 	}
 
 }

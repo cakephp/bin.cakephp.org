@@ -121,6 +121,14 @@ class Paste extends AppModel {
 		return $parent['Paste']['paste_id'] === null;
 	}
 
+	public function findByTemp($temp) {
+		$this->unbindModel(array('hasMany' => array('Version')));
+		return $this->find('first', array(
+			'conditions' => array('Paste.temp' => $temp),
+			'order' => 'Paste.created DESC'
+		));
+	}
+
 /**
  * Custom finder for saved pastes. Pastes need to have paste_id = null as well
  * as paste_id != null means its a saved version of a paste.
