@@ -1,4 +1,5 @@
 <?php
+App::uses('AppController', 'Controller');
 App::uses('Sanitize', 'Utility');
 App::uses('Folder', 'Utility');
 
@@ -107,7 +108,7 @@ class PastesController extends AppController {
 	 */
 	public function view($temp = null) {
 		$this->_getPaste($temp);
-		$this->set(array('languages', $this->Paste->languages()));
+		$this->set(array('languages' => $this->Paste->languages()));
 	}
 
 	/**
