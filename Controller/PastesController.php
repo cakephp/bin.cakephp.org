@@ -163,7 +163,6 @@ class PastesController extends AppController {
 			$this->Paste->unbindModel(array('hasMany'=>array('Version')));
 			$paste = $this->Paste->read('Paste.id', $id);
 		}
-
 		$this->set(compact('id', 'paste', 'tags_added'));
 	}
 
