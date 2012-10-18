@@ -151,6 +151,8 @@ class PasteTest extends CakeTestCase {
 		$this->assertTrue((bool)$result);
 
 		$originalId = $this->Paste->id;
+		$originalTemp = $result['Paste']['temp'];
+
 		$data = array(
 			'Paste' => array(
 				'id' => $originalId,
@@ -165,6 +167,7 @@ class PasteTest extends CakeTestCase {
 
 		$this->assertTrue((bool)$result);
 		$this->assertNotEquals($this->Paste->id, $originalId);
+		$this->assertNotEquals($result['Paste']['temp'], $originalTemp);
 
 		$result = $this->Paste->read();
 		$this->assertEquals($originalId, $result['Paste']['paste_id']);

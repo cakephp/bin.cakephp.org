@@ -58,16 +58,6 @@ class Paste extends AppModel {
 	);
 
 /**
- * Before save callback, sets some default data.
- */
-	public function beforeValidate($options = array()) {
-		if (empty($this->data['Paste']['temp'])) {
-			$this->data['Paste']['temp'] = abs(mt_rand());
-		}
-		return true;
-	}
-
-/**
  * Before saving the paste, save the tags so they can be associated
  */
 	public function beforeSave($options = array()) {
@@ -98,8 +88,12 @@ class Paste extends AppModel {
 		// If this paste has a parent always create a new one.
 		if (!empty($this->data['Paste']['paste_id'])) {
 			$this->id = false;
-			unset($this->data['Paste']['id']);
+			unset($this->data['Paste']['id'], $this->data['Paste']['temp']);
 			$this->data['Paste']['created'] = date('Y-m-d H:i:s');
+		}
+
+		if (empty($this->data['Paste']['temp'])) {
+			$this->data['Paste']['temp'] = abs(mt_rand());
 		}
 		return true;
 	}
