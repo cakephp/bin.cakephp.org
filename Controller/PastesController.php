@@ -17,9 +17,9 @@ class PastesController extends AppController {
 	public $components = array('Session', 'Security');
 
 	protected function _validatePost() {
-		if($this->request->action === 'edit'){
+		if ($this->request->action === 'edit') {
 			$this->Security->blackHoleCallback = 'edit';
-		} elseif($this->request->action === 'add') {
+		} elseif ($this->request->action === 'add') {
 			$this->Security->blackHoleCallback = 'add';
 		}
 	}
@@ -29,6 +29,9 @@ class PastesController extends AppController {
 		if (!empty($this->request->params['nick'])) {
 			$this->nick = $this->request->params['nick'];
 		}
+	}
+
+	public function beforeRender() {
 		$this->set('nick', $this->nick);
 	}
 
@@ -40,9 +43,9 @@ class PastesController extends AppController {
 		if ($this->nick) {
 			$conditions['Paste.nick'] = $this->nick;
 		}
+
 		$this->Paste->recursive = 0;
-		$pastes = $this->paginate('Paste', $conditions);
-		$this->set('pastes', $pastes);
+		$this->set('pastes', $this->paginate('Paste', $conditions));
 	}
 
 	public function nick() {
@@ -58,37 +61,43 @@ class PastesController extends AppController {
 		if (!empty($this->request->query['q'])) {
 			$q = $this->request->query['q'];
 		}
+
 		if ($q) {
 			$conditions['OR'] = array(
 				'Paste.nick LIKE' => '%' . $q . '%',
 				'Paste.note LIKE' => '%' . $q . '%',
 			);
 		}
+
 		$pastes = $this->paginate('Paste', $conditions);
-		$this->set(array(
-			'pastes' => $pastes,
-			'q' => $q
-		));
+		$this->set(compact('pastes', 'q'));
 	}
 
 	/**
 	 * View a saved paste and its revisions.
 	 */
-	public function saved($id = null) {
+	public function saved($id = null, $type = 'html') {
 		if (!$id) {
 			return $this->setAction('index');
 		}
+
 		$this->Paste->recursive = 2;
 		$this->request->data = $this->Paste->read(null, $id);
-		if (!empty($this->request->data)) {
-			$this->set('paste', $this->request->data);
-			$this->set('original',  $this->request->data['Original']);
-			$this->set('languages',$this->Paste->languages());//set geshi languages
-			unset($this->request->data['Paste']['nick']);
-			$this->render('view');
-		} else {
-			$this->redirect(array('action' => 'index'));
+		$this->set('paste', $this->request->data);
+		if (empty($this->request->data)) {
+			return $this->redirect(array('action' => 'index'));
 		}
+
+		if ($type === 'raw') {
+			$this->layout = false;
+			$this->response->type('text');
+			return $this->render('raw');
+		}
+
+		$this->set('original', $this->request->data['Original']);
+		$this->set('languages', $this->Paste->languages());
+		unset($this->request->data['Paste']['nick']);
+		return $this->render('view');
 	}
 
 	/**
@@ -98,11 +107,7 @@ class PastesController extends AppController {
 	 */
 	public function view($temp = null) {
 		$this->_getPaste($temp);
-		$this->set(array(
-			'paste' => $this->request->data,
-			'languages' => $this->Paste->languages()
-		));
-		unset($this->request->data['Paste']['nick']);
+		$this->set(array('languages', $this->Paste->languages()));
 	}
 
 	/**
@@ -112,9 +117,7 @@ class PastesController extends AppController {
 	 */
 	public function raw($temp = null) {
 		$this->_getPaste($temp);
-
 		$this->layout = false;
-		$this->set('paste', $this->request->data);
 		$this->response->type('text');
 	}
 
@@ -122,8 +125,11 @@ class PastesController extends AppController {
 		if (!$temp) {
 			throw new NotFoundException();
 		}
+
 		$this->Paste->unbindModel(array('hasMany' => array('Version')));
 		$this->request->data = $this->Paste->findByTemp($temp, null, 'Paste.created DESC');
+		$this->set('paste', $this->request->data);
+		unset($this->request->data['Paste']['nick']);
 
 		if (empty($this->request->data)) {
 			throw new NotFoundException();
@@ -131,31 +137,33 @@ class PastesController extends AppController {
 	}
 
 	public function tag($id = null) {
-		$this->set('id', $id);
-		$this->set('tags_added', false);
+		$tags_added = false;
 		$this->Paste->unbindModel(array('hasMany'=>array('Version')));
 		$paste = $this->Paste->read('Paste.id', $id);
-		if(!empty($this->request->data)) {
-			$allow = array(',', "'", '"', '_', '-', '|', '^', ':', '.');
-			$allow[] = " ";
-			$tags = $this->Paste->Tag->saveTags(Sanitize::paranoid($this->request->data['Paste']['tags'],$allow));
-			if(!empty($paste['Tag'])) {
-				foreach($paste['Tag'] as $var) {
-					$tags[] = $var['id'];
-				}
-			}
-			$this->request->data['Paste']['id'] = $id;
-			$this->request->data['Tag']['Tag'] = array_unique($tags);
-			Sanitize::clean($this->request->data);
-			if($this->Paste->save($this->request->data)) {
-				$this->set('tags_added', true);
-				$this->Paste->cacheQueries = false;
-				$this->Paste->unbindModel(array('hasMany'=>array('Version')));
-				$paste = $this->Paste->read('Paste.id', $id);
+		if (empty($this->request->data)) {
+			$this->set(compact('id', 'paste', 'tags_added'));
+			return;
+		}
+
+		$allow = array(',', "'", '"', '_', '-', '|', '^', ':', '.', ' ');
+		$tags = $this->Paste->Tag->saveTags(Sanitize::paranoid($this->request->data['Paste']['tags'],$allow));
+		if (!empty($paste['Tag'])) {
+			foreach ($paste['Tag'] as $var) {
+				$tags[] = $var['id'];
 			}
 		}
 
-		$this->set('paste', $paste);
+		$this->request->data['Paste']['id'] = $id;
+		$this->request->data['Tag']['Tag'] = array_unique($tags);
+		Sanitize::clean($this->request->data);
+		if ($this->Paste->save($this->request->data)) {
+			$tags_added = true;
+			$this->Paste->cacheQueries = false;
+			$this->Paste->unbindModel(array('hasMany'=>array('Version')));
+			$paste = $this->Paste->read('Paste.id', $id);
+		}
+
+		$this->set(compact('id', 'paste', 'tags_added'));
 	}
 
 	/**
@@ -178,23 +186,26 @@ class PastesController extends AppController {
 		if ($this->request->is('get')) {
 			return $this->redirect(array('action' => 'add'));
 		}
-		if ($this->request->is('post') || $this->request->is('put')) {
-			$this->Paste->create($this->request->data);
-			$result = $this->Paste->save();
-			if (!empty($result)) {
-				if ($result['Paste']['save'] == 0) {
-					$this->Session->setFlash('The Paste is just temporary.');
-					return $this->redirect(array('action' => 'view', $result['Paste']['temp']));
-				} else {
-					$this->Session->setFlash('The Paste is saved');
-					return $this->redirect(array('action' => 'saved', $result['Paste']['id']));
-				}
-			} else {
-				$this->Session->setFlash('Please correct errors below.');
-				$this->set('languages', $this->Paste->languages());
-				$this->render('add');
-			}
+
+		if (!$this->request->is('post') && !$this->request->is('put')) {
+			return;
 		}
+
+		$this->Paste->create($this->request->data);
+		$result = $this->Paste->save();
+		if (empty($result)) {
+			$this->Session->setFlash('Please correct errors below.');
+			$this->set('languages', $this->Paste->languages());
+			return $this->render('add');
+		}
+
+		if ($result['Paste']['save'] == 0) {
+			$this->Session->setFlash('The Paste is just temporary.');
+			return $this->redirect(array('action' => 'view', $result['Paste']['temp']));
+		}
+
+		$this->Session->setFlash('The Paste is saved');
+		return $this->redirect(array('action' => 'saved', $result['Paste']['id']));
 	}
 
 	/**
@@ -204,9 +215,10 @@ class PastesController extends AppController {
 		if (!$id) {
 			throw new NotFoundException();
 		}
-		$this->set('nick', null);
+
+		$this->nick = null;
 		if (empty($this->request->data)) {
-			$this->set('languages',$this->Paste->languages());
+			$this->set('languages', $this->Paste->languages());
 			$this->request->data = $this->Paste->read(null, $id);
 		}
 	}
