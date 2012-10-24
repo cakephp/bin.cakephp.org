@@ -1,37 +1,52 @@
 /**
  * Code previews
  */
-.code {
-	font-family: Monaco, "Bitstream Vera Sans Mono", Courier, monospaced;
+.code-body {
+	overflow-x: auto;
 	margin: 20px 0;
-	line-height: 20px;
-	font-size: 12px;
-	padding: 0;
-	background: rgb(235, 235, 235);
-	white-space:normal;
-	position: relative;
 	border-radius: 5px;
+	border: 1px solid #ccc;
 }
-.code ol {
-	list-style: decimal;
-	list-style-position: outside;
+
+.code {
+	background: rgb(235, 235, 235);
+	border: none;
+	font-family: Monaco, "Bitstream Vera Sans Mono", Courier, monospaced;
+	font-size: 12px;
+	line-height: 20px;
 	padding: 0;
 	margin: 0;
+	white-space:normal;
+	width: 100%;
 }
-.code ol li {
+.code-block {
+	padding: 0;
+}
+
+.code-numbers {
+	margin: 0;
+	padding: 0;
+	text-align: right;
+	border-right: 1px solid rgb(220, 220, 210);
+}
+
+/** lines have .de1 */
+.code .de1 {
+	background: rgb(235, 235, 235);
+}
+.code-numbers .de1 {
+	padding: 0 4px;
+}
+
+.code-block .de1 {
 	background: rgb(250, 250, 248);
-	margin: 0 0 0 42px;
-	padding: 0 0 0 5px;
 	color: #000;
-	clear: none;
-	list-style: decimal;
 	white-space:pre;
 	line-height: 18px;
 	height: 18px;
+	padding: 0 0 0 4px;
 }
-.code ol li div {
-	color:#000;
-}
+
 
 /* comments */
 .co1,

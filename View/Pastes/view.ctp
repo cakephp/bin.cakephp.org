@@ -1,8 +1,8 @@
 <div class="paste paste-view">
 	<div class="row">
 		<div class="columns nine">
-			<div class="code body" lang="<?php echo h($paste['Paste']['lang']); ?>">
-				<?php echo $this->Geshi->highlightText($paste['Paste']['body'], $paste['Paste']['lang']);?>
+			<div class="code-body" lang="<?php echo h($paste['Paste']['lang']); ?>">
+				<?php echo $this->Geshi->highlightAsTable($paste['Paste']['body'], $paste['Paste']['lang']);?>
 			</div>
 		</div>
 		<div class="columns three">
