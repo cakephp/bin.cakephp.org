@@ -36,6 +36,7 @@
 }
 .code-numbers .de1 {
 	padding: 0 4px;
+	min-width: 22px;
 }
 
 .code-block .de1 {
