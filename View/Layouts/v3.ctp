@@ -47,6 +47,8 @@
 
 	<div id="content" class="row">
 		<div class="columns twelve clearfix">
+		<div data-alert="" class="alert-box error">Bin will be removed on June 1, 2014 in favor of <a href="http://gist.github.com" style="color: #E6D273;">http://gist.github.com</a>. Please save all your pastes before then. So long, and thanks for all the fish!<a href="#" class="close">×</a>
+</div>
 		<?php
 			echo $this->Session->flash('flash', array(
 				'params' => array(
