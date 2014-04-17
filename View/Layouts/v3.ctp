@@ -33,10 +33,6 @@
 			<div class="columns nine phone-three">
 			<ul class="navigation">
 				<li>
-					<?php $css_class = ($this->name == 'Pastes' && $this->request->action == 'add') ? 'on' : null;?>
-					<?php echo $this->Html->link('New', '/', array('class'=>$css_class)); ?>
-				</li>
-				<li>
 					<?php $css_class = ($this->name == 'Pastes' && $this->request->action == 'index') ? 'on' : null;?>
 					<?php echo $this->Html->link('Saved', '/saved', array('class'=>$css_class)); ?>
 				</li>
