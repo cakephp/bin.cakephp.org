@@ -25,6 +25,14 @@ class PastesController extends AppController {
 		}
 	}
 
+	protected function _redirectNick() {
+		if (empty($this->nick)) {
+			return $this->redirect(array('action' => 'index'));
+		}
+		
+		return $this->redirect(array('action' => 'nick', $this->nick));
+	}
+
 	public function beforeFilter() {
 		$this->_validatePost();
 		if (!empty($this->request->params['nick'])) {
@@ -120,57 +128,21 @@ class PastesController extends AppController {
 	 * Get the form to add a new paste.
 	 */
 	public function add() {
-		$this->set('languages', $this->Paste->languages());
-		$this->request->data = array(
-			'Paste' => array(
-				'nick' => $this->nick,
-				'lang' => 'php',
-			)
-		);
+		return $this->_redirectNick();
 	}
 
 	/**
 	 * Save a new or updated paste.
 	 */
 	public function save() {
-		if ($this->request->is('get')) {
-			return $this->redirect(array('action' => 'add'));
-		}
-
-		if (!$this->request->is('post') && !$this->request->is('put')) {
-			return;
-		}
-
-		$this->Paste->create($this->request->data);
-		$result = $this->Paste->save();
-		if (empty($result)) {
-			$this->Session->setFlash('Please correct errors below.');
-			$this->set('languages', $this->Paste->languages());
-			return $this->render('add');
-		}
-
-		if ($result['Paste']['save'] == 0) {
-			$this->Session->setFlash('The Paste is just temporary.');
-			return $this->redirect(array('action' => 'view', $result['Paste']['temp']));
-		}
-
-		$this->Session->setFlash('The Paste is saved');
-		return $this->redirect(array('action' => 'saved', $result['Paste']['id']));
+		return $this->_redirectNick();
 	}
 
 	/**
 	 * Get the edit page, it submits to the save action.
 	 */
 	public function edit($id = null) {
-		if (!$id) {
-			throw new NotFoundException();
-		}
-
-		$this->nick = null;
-		if (empty($this->request->data)) {
-			$this->set('languages', $this->Paste->languages());
-			$this->request->data = $this->Paste->read(null, $id);
-		}
+		return $this->_redirectNick();
 	}
 
 	protected function _getPaste($temp) {
