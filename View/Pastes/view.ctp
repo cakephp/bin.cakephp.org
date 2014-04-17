@@ -59,12 +59,6 @@
 				); ?>
 			</div>
 
-			<div class="row form-field">
-				<a href="#modify" class="tiny red button modify-paste">
-					Modify this Paste
-				</a>
-			</div>
-
 		</div>
 	</div>
 </div>
